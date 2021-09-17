@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Pomodoro</title>
+</head>
+<body>
+<section class="section">
+    <div class="wrapper">
+        <div class="pomodoro">
+            <div class="pomodoro__timer">
+                <div class="pomodoro__modes">
+                    <button class="pomodoro__mode current" id="pomodoro">Pomodoro</button>
+                    <button class="pomodoro__mode" id="shortBreak">Short Break</button>
+                    <button class="pomodoro__mode" id="longBreak">Long Break</button>
+                </div>
+                <div class="pomodoro__body">
+                    <span id="timeHour">00</span>
+                    <span>:</span>
+                    <span id="timeMinute">25</span>
+                    <span>:</span>
+                    <span id="timeSecond">00</span>
+                </div>
+                <div class="pomodoro__buttons">
+                    <button class="pomodoro__btn" id="run">Run</button>
+                    <button class="pomodoro__btn" id="pause">Pause</button>
+                    <button class="pomodoro__btn" id="reset">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

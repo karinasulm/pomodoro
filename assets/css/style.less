@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@primary-color: #c32f27;
+@secondary-color: #e5e5e5;
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: @primary-color;
+    color: @secondary-color;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+.wrapper {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.section {
+    padding: 100px 0;
+}
+.pomodoro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pomodoro__timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    padding: 40px;
+    background-color: fadeout(lighten(@primary-color, 50%),90%);
+}
+.pomodoro__body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	height: 300px;
+    margin: 40px 0;
+	border: 5px solid @secondary-color;
+	border-radius: 50%;
+	span {
+		font-size: 60px;
+		color: @secondary-color;
+	}
+}
+.pomodoro__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pomodoro__btn {
+	position: relative;
+    padding: 10px 40px;
+	margin: 0 20px 0 0;
+	background-color: @secondary-color;
+	color: @primary-color;
+	border: none;
+	outline: none;
+	line-height: 1;
+	text-decoration: none;
+	cursor: pointer;
+    &:last-child {
+        margin: 0;
+    }
+    &:hover {
+        background-color: darken(@secondary-color, 5%);
+    }
+	&:active {
+		background-color: darken(@secondary-color, 10%);
+	}
+}
+.pomodoro__modes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pomodoro__mode {
+	position: relative;
+    padding: 10px 40px;
+	margin: 0 20px 0 0;
+	background-color: @secondary-color;
+	color: @primary-color;
+	border: none;
+	outline: none;
+	line-height: 1;
+	text-decoration: none;
+	cursor: pointer;
+    &:last-child {
+        margin: 0;
+    }
+    &:hover {
+        background-color: darken(@secondary-color, 5%);
+    }
+	&:active {
+		background-color: darken(@secondary-color, 10%);
+	}
+    &.current {
+        background-color: darken(@secondary-color, 10%);
+    }
+}

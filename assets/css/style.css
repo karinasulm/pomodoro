@@ -1,0 +1,139 @@
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_cJD7g4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTUSjIg1_i6t8kCHKm45xW4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_ZpC7g4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_bZF7g4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_dJE7g4.ttf) format('truetype');
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #c32f27;
+  color: #e5e5e5;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+}
+.wrapper {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.section {
+  padding: 100px 0;
+}
+.pomodoro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pomodoro__timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  padding: 40px;
+  background-color: rgba(252, 238, 237, 0.1);
+}
+.pomodoro__body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  margin: 40px 0;
+  border: 5px solid #e5e5e5;
+  border-radius: 50%;
+}
+.pomodoro__body span {
+  font-size: 60px;
+  color: #e5e5e5;
+}
+.pomodoro__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pomodoro__btn {
+  position: relative;
+  padding: 10px 40px;
+  margin: 0 20px 0 0;
+  background-color: #e5e5e5;
+  color: #c32f27;
+  border: none;
+  outline: none;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pomodoro__btn:last-child {
+  margin: 0;
+}
+.pomodoro__btn:hover {
+  background-color: #d8d8d8;
+}
+.pomodoro__btn:active {
+  background-color: #cccccc;
+}
+.pomodoro__modes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pomodoro__mode {
+  position: relative;
+  padding: 10px 40px;
+  margin: 0 20px 0 0;
+  background-color: #e5e5e5;
+  color: #c32f27;
+  border: none;
+  outline: none;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pomodoro__mode:last-child {
+  margin: 0;
+}
+.pomodoro__mode:hover {
+  background-color: #d8d8d8;
+}
+.pomodoro__mode:active {
+  background-color: #cccccc;
+}
+.pomodoro__mode.current {
+  background-color: #cccccc;
+}
