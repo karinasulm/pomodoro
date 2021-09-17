@@ -65,6 +65,7 @@ body {
     width: 80%;
     padding: 40px;
     background-color: fadeout(lighten(@primary-color, 50%),90%);
+    border-radius: 10px;
 }
 .pomodoro__body {
 	display: flex;
@@ -92,6 +93,8 @@ body {
 	background-color: @secondary-color;
 	color: @primary-color;
 	border: none;
+    border-radius: 10px;
+    box-shadow: 6px 6px 10px fadeout(darken(@primary-color, 50%), 70%);
 	outline: none;
 	line-height: 1;
 	text-decoration: none;
@@ -100,10 +103,10 @@ body {
         margin: 0;
     }
     &:hover {
-        background-color: darken(@secondary-color, 5%);
+        box-shadow: 4px 4px 7px fadeout(darken(@primary-color, 50%), 70%);
     }
 	&:active {
-		background-color: darken(@secondary-color, 10%);
+		box-shadow: 2px 2px 4px fadeout(darken(@primary-color, 50%), 70%);
 	}
 }
 .pomodoro__modes {
@@ -113,10 +116,9 @@ body {
 }
 .pomodoro__mode {
 	position: relative;
-    padding: 10px 40px;
 	margin: 0 20px 0 0;
-	background-color: @secondary-color;
-	color: @primary-color;
+    background-color: transparent;
+	color: @secondary-color;
 	border: none;
 	outline: none;
 	line-height: 1;
@@ -126,12 +128,12 @@ body {
         margin: 0;
     }
     &:hover {
-        background-color: darken(@secondary-color, 5%);
+        color: darken(@secondary-color, 5%);
     }
 	&:active {
-		background-color: darken(@secondary-color, 10%);
+		color: darken(@secondary-color, 10%);
 	}
     &.current {
-        background-color: darken(@secondary-color, 10%);
+        font-weight: 700;
     }
 }
