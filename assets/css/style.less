@@ -261,8 +261,13 @@ body {
         outline: none;
         padding: 10px;
         margin: 0 5px 0 0;
+        transition: all .4s ease;
         &:last-child {
             margin: 0;
+        }
+        &:disabled {
+            color: darken(@secondary-color, 30%);;
+            background-color: fadeout(@secondary-color, 90%);
         }
     }
 }
@@ -306,6 +311,13 @@ body {
 	&:active {
 		transform: scale(0.95);
 	}
+    &:disabled {
+        color: darken(@secondary-color, 30%);;
+        background-color: fadeout(@secondary-color, 90%);
+    }
+    &:disabled:hover::after {
+        animation: none;
+    }
 
 }
 

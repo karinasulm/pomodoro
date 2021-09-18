@@ -298,9 +298,14 @@ body {
   outline: none;
   padding: 10px;
   margin: 0 5px 0 0;
+  transition: all 0.4s ease;
 }
 .settings__item input:last-child {
   margin: 0;
+}
+.settings__item input:disabled {
+  color: #b3b3b3;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .settings__buttons {
   width: 100%;
@@ -342,6 +347,13 @@ body {
 }
 .settings__btn:active {
   transform: scale(0.95);
+}
+.settings__btn:disabled {
+  color: #b3b3b3;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.settings__btn:disabled:hover::after {
+  animation: none;
 }
 @keyframes moveLightOnBtn {
   from {
