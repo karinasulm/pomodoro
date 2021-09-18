@@ -278,10 +278,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 	
 	// to do list
+	if (localStorage.getItem('todolist') === null) {
+		localStorage.setItem('todolist', '');
+	}
+	pomodoroTasks.innerHTML = localStorage.todolist;
+	let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
+	for (let i = 0; i < pomodoroTaskdelete.length; i++) {
+		pomodoroTaskdelete[i].addEventListener('click', function () {
+			localStorage.todolist = pomodoroTasks.innerHTML;
+		});
+	}
 
 	addTaskBtn.addEventListener('click', function () {
 		pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '"><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
 		addTaskInput.value = '';
+		localStorage.todolist = pomodoroTasks.innerHTML;
+		let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
+		for (let i = 0; i < pomodoroTaskdelete.length; i++) {
+			pomodoroTaskdelete[i].addEventListener('click', function () {
+				localStorage.todolist = pomodoroTasks.innerHTML;
+			});
+		}
 	});
 
 	// вывод времени (нужно ли подставить ноль перед значением)
