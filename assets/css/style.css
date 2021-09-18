@@ -72,11 +72,14 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
   text-decoration: none;
+  border: none;
+  outline: none;
   padding: 10px 20px;
   margin: 0 20px 0 0;
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 .header__link:last-child {
   margin: 0;
@@ -206,6 +209,139 @@ body {
 }
 .pomodoro__btn:disabled:hover::after {
   animation: none;
+}
+.modal {
+  display: none;
+  color: #808080;
+}
+.modal.active {
+  display: block;
+}
+.modal__bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(25, 25, 25, 0.8);
+  padding: 0 20px;
+  z-index: 1000;
+}
+.modal__dialog {
+  position: relative;
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 40px;
+}
+.modal__title {
+  font-size: 24px;
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+.modal__close {
+  position: absolute;
+  background: transparent;
+  width: 20px;
+  height: 20px;
+  border: none;
+  outline: none;
+  right: 15px;
+  top: 20px;
+  cursor: pointer;
+}
+.modal__close::before,
+.modal__close::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 5px;
+  background-color: #fff;
+  right: 0;
+  top: 0;
+  transition: all 0.3s ease;
+}
+.modal__close::before {
+  transform: rotate(45deg);
+}
+.modal__close::after {
+  transform: rotate(-45deg);
+}
+.modal__close:hover::before,
+.modal__close:hover::after {
+  background-color: #666666;
+}
+.settings {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.settings__item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 20px 0;
+}
+.settings__item input {
+  width: 60px;
+  color: #191919;
+  font-size: 18px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  outline: none;
+  padding: 10px;
+  margin: 0 5px 0 0;
+}
+.settings__item input:last-child {
+  margin: 0;
+}
+.settings__buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 0 0;
+}
+.settings__btn {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border: none;
+  outline: none;
+  line-height: 1;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin: 0 20px 0 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.settings__btn:last-child {
+  margin: 0;
+}
+.settings__btn::after {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: -30px;
+  transform: skew(-30deg);
+  transition: left 0.4s ease;
+}
+.settings__btn:hover::after {
+  animation: moveLightOnBtn 0.4s ease;
+}
+.settings__btn:active {
+  transform: scale(0.95);
 }
 @keyframes moveLightOnBtn {
   from {

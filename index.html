@@ -14,8 +14,8 @@
         <div class="header__inner">
             <a href="" class="header__logo">pomodoro</a>
             <nav class="header__nav">
-                <a href="" class="header__link">Settings</a>
-                <a href="" class="header__link">About</a>
+                <button class="header__link" id="settingsOpen">Settings</button>
+                <button class="header__link">About</button>
             </nav>
         </div>
     </div>
@@ -45,6 +45,44 @@
         </div>
     </div>
 </section>
+<div class="modal modal--settings" id="modalSettings">
+    <div class="modal__bg">
+        <div class="modal__dialog">
+            <button class="modal__close" id="settingsClose"></button>
+            <h2 class="modal__title">Settings</h2>
+            <form action="/" class="settings">
+                <div class="settings__item">
+                    <label>Pomodoro</label>
+                    <div class="settings__time">
+                        <input id="pomodoroHour" type="number" value="0" min='0' max='8'>
+                        <input id="pomodoroMinute" type="number" value="25" min='0' max='59'>
+                        <input id="pomodoroSecond" type="number" value="0" min='0' max='59'>
+                    </div>
+                </div>
+                <div class="settings__item">
+                    <label>Short Break</label>
+                    <div class="settings__time">
+                        <input id="shortBreakHour" type="number" value="0" min='0' max='8'>
+                        <input id="shortBreakMinute" type="number" value="5" min='0' max='59'>
+                        <input id="shortBreakSecond" type="number" value="0" min='0' max='59'>
+                    </div>
+                </div>
+                <div class="settings__item">
+                    <label>Long Break</label>
+                    <div class="settings__time">
+                        <input id="longBreakHour" type="number" value="0" min='0' max='8'>
+                        <input id="longBreakMinute" type="number" value="15" min='0' max='59'>
+                        <input id="longBreakSecond" type="number" value="0" min='0' max='59'>
+                    </div>
+                </div>
+                <div class="settings__buttons">
+                    <button class="settings__btn">Save</button>
+                    <button class="settings__btn">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="assets/js/script.js"></script>
 </body>
 </html>

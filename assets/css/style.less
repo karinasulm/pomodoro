@@ -38,11 +38,14 @@ body {
     background-color: fadeout(@secondary-color, 90%);
     color: @secondary-color;
     text-decoration: none;
+    border: none;
+    outline: none;
     padding: 10px 20px;
     margin: 0 20px 0 0;
     transition: all .2s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     &:last-child {
         margin: 0;
     }
@@ -173,6 +176,139 @@ body {
         animation: none;
     }
 }
+.modal {
+    display: none;
+	color: darken(@secondary-color, 50%);
+	&.active {
+        display: block;
+	}
+}
+.modal__bg {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: fadeout(darken(@secondary-color, 90%), 20%);
+	padding: 0 20px;
+	z-index: 1000;
+}
+.modal__dialog {
+	position: relative;
+	width: 500px;
+	background-color: fadeout(@secondary-color, 80%);
+    color: @secondary-color;
+	padding: 40px;
+}
+.modal__title {
+    font-size: 24px;
+    text-align: center;
+    margin: 0 0 40px 0;
+}
+.modal__close {
+	position: absolute;
+	background: transparent;
+	width: 20px;
+	height: 20px;
+	border: none;
+	outline: none;
+	right: 15px;
+	top: 20px;
+	cursor: pointer;
+	&::before, &::after {
+		content: '';
+		position: absolute;
+		width: 20px;
+		height: 5px;
+		background-color: @secondary-color;
+		right: 0;
+		top: 0;
+		transition: all .3s ease;
+	}
+	&::before {
+		transform: rotate(45deg);
+	}
+	&::after {
+		transform: rotate(-45deg);
+	}
+	&:hover::before, &:hover::after {
+		background-color: darken(@secondary-color, 60%);
+	}
+}
+.settings {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.settings__item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 20px 0;
+    input {
+        width: 60px;
+        color: darken(@secondary-color, 90%);
+        font-size: 18px;
+        border: none;
+        background-color: fadeout(@secondary-color, 70%);
+        color: @secondary-color;
+        outline: none;
+        padding: 10px;
+        margin: 0 5px 0 0;
+        &:last-child {
+            margin: 0;
+        }
+    }
+}
+.settings__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 0 0;
+}
+.settings__btn {
+    position: relative;
+	background-color: fadeout(@secondary-color, 70%);
+	color: @secondary-color;
+	border: none;
+	outline: none;
+	line-height: 1;
+	text-decoration: none;
+    padding: 10px 30px;
+    margin: 0 20px 0 0;
+	cursor: pointer;
+    overflow: hidden;
+    transition: all .2s ease;
+    &:last-child {
+        margin: 0;
+    }
+    &::after {
+        position: absolute;
+        content: '';
+        width: 10px;
+        height: 100%;
+        background-color: fadeout(@secondary-color, 80%);
+        top: 0;
+        left: -30px;
+        transform: skew(-30deg);
+        transition: left .4s ease;
+    }
+    &:hover::after {
+        animation: moveLightOnBtn .4s ease;
+    }
+	&:active {
+		transform: scale(0.95);
+	}
+
+}
+
 @keyframes moveLightOnBtn {
     from {
         left: -20px;

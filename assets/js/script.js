@@ -160,8 +160,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		showTime(second, timeSecond);
 	});
 
-
-
 	// вывод времени (нужно ли подставить ноль перед значением)
 	function showTime(value, elem) {
 		if (value < 10) {
@@ -255,5 +253,19 @@ document.addEventListener('DOMContentLoaded', function () {
 		minuteReserv = 0;
 		secondReserv = 0;
 	}
+
+	// настройки
+
+	const settingsOpen = document.getElementById('settingsOpen');
+	const settingsClose = document.getElementById('settingsClose');
+	const modalSettings = document.getElementById('modalSettings');
+
+	settingsOpen.addEventListener('click', function () {
+		modalSettings.classList.add('active');
+	});
+
+	settingsClose.addEventListener('click', function () {
+		modalSettings.classList.remove('active');
+	});
 	
 });
