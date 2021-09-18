@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	let minuteReserv = 0;
 	let secondReserv = 0;
 
+
+
 	// выбор режима помодоро
     pomodoro.addEventListener('click', function () {
         if (resetCheck === true) {
@@ -44,9 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showTime(hour, timeHour);
             showTime(minute, timeMinute);
             showTime(second, timeSecond);
-            shortBreak.classList.remove('current');
-            longBreak.classList.remove('current');
-            pomodoro.classList.add('current');
+            setCurrentMode(mode);
         }
     });
 
@@ -59,9 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showTime(hour, timeHour);
             showTime(minute, timeMinute);
             showTime(second, timeSecond);
-            shortBreak.classList.add('current');
-            longBreak.classList.remove('current');
-            pomodoro.classList.remove('current');
+            setCurrentMode(mode);
         }
     });
 
@@ -74,9 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showTime(hour, timeHour);
             showTime(minute, timeMinute);
             showTime(second, timeSecond);
-            shortBreak.classList.remove('current');
-            longBreak.classList.add('current');
-            pomodoro.classList.remove('current');
+            setCurrentMode(mode);
         }
     });
 	
@@ -84,9 +80,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	run.addEventListener('click', function () {
 		// проверка не запущен ли уже таймер (во избежании повторного нажатия)
 		if (runCheck === false) {
+			runCheck = true;
 			pauseCheck = false;
 			resetCheck = false;
-			runCheck = true;
+			setDisabledTimerButtons(true, false, false);
+			setDisabledModeButtons(true);
 			getTimeFromMode(mode);
 			showTime(hour, timeHour);
 			showTime(minute, timeMinute);
@@ -99,10 +97,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				} else if (pauseCheck === true) {
 					runCheck = false;
 					resetCheck = false;
-					hourReserv = hour;
-					minuteReserv = minute;
-					secondReserv = second;
 					pauseCheck = false;
+					setTimeReserv(hour, minute, second);
 					clearInterval(interval);
 				} else {
 					second--;
@@ -143,24 +139,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		// проверка, запущен ли таймер, чтобы поставить его на паузу
         if (runCheck === true) {
 			runCheck = false;
-        	resetCheck = false;
 			pauseCheck = true;
+			resetCheck = false;
+			setDisabledTimerButtons(false, true, false);
+			setDisabledModeButtons(true);
 		}
 	});
 
 	// сброс таймера
 	reset.addEventListener('click', function () {
-        runCheck = false;
-        pauseCheck = false;
+		runCheck = false;
+		pauseCheck = false;
 		resetCheck = true;
+		setDisabledTimerButtons(false, false, false);
+		setDisabledModeButtons(false);
+		resetTimeReserv();
 		getTimeFromMode(mode, hour, minute, second);
         showTime(hour, timeHour);
 		showTime(minute, timeMinute);
 		showTime(second, timeSecond);
-		hourReserv = 0;
-		minuteReserv = 0;
-		secondReserv = 0;
 	});
+
+
 
 	// вывод времени (нужно ли подставить ноль перед значением)
 	function showTime(value, elem) {
@@ -190,7 +190,70 @@ document.addEventListener('DOMContentLoaded', function () {
 				minute = 15;
 				second = 0;
 			}
-        return hour, minute, second;
+			return [hour, minute, second];
     }
+
+	// разрешение/запрет выбора режима
+	function setDisabledModeButtons(check) {
+		if (check) {
+			pomodoro.disabled = true;
+			shortBreak.disabled = true;
+			longBreak.disabled = true;
+		} else {
+			pomodoro.disabled = false;
+			shortBreak.disabled = false;
+			longBreak.disabled = false;
+		}
+	}
+
+	// разрешение/запрет нажатия кнопок управления таймером
+	function setDisabledTimerButtons(checkRun, checkPause, checkReset) {
+		if (checkRun) {
+			run.disabled = true;
+		} else {
+			run.disabled = false;
+		}
+		if (checkPause) {
+			pause.disabled = true;
+		} else {
+			pause.disabled = false;
+		}
+		if (checkReset) {
+			reset.disabled = true;
+		} else {
+			reset.disabled = false;
+		}
+	}
+
+	// выбор текущего режима в css
+	function setCurrentMode(mode) {
+		if (mode === 1) {
+			pomodoro.classList.add('current');
+			shortBreak.classList.remove('current');
+			longBreak.classList.remove('current');
+		} else if (mode === 2) {
+			pomodoro.classList.remove('current');
+			shortBreak.classList.add('current');
+			longBreak.classList.remove('current');
+		} else {
+			pomodoro.classList.remove('current');
+			shortBreak.classList.remove('current');
+			longBreak.classList.add('current');
+		}
+	}
+
+	// записать данные в резерв
+	function setTimeReserv(hour, minute, second) {
+		hourReserv = hour;
+		minuteReserv = minute;
+		secondReserv = second;
+	}
+
+	// сбросить резерв
+	function resetTimeReserv() {
+		hourReserv = 0;
+		minuteReserv = 0;
+		secondReserv = 0;
+	}
 	
 });

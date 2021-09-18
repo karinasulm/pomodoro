@@ -107,6 +107,12 @@ body {
     &.current {
         font-weight: 700;
     }
+    &:disabled {
+        color: fadeout(@secondary-color, 30%);
+    }
+    &.current:disabled {
+        color: @secondary-color;
+    }
 }
 .pomodoro__body {
 	display: flex;
@@ -160,6 +166,12 @@ body {
 	&:active {
 		transform: scale(0.95);
 	}
+    &:disabled {
+        background-color: fadeout(@secondary-color, 95%);
+    }
+    &:disabled:hover::after {
+        animation: none;
+    }
 }
 @keyframes moveLightOnBtn {
     from {
