@@ -1,5 +1,7 @@
 'use strict'
 
+let audio = document.getElementById('audio');
+
 document.addEventListener('DOMContentLoaded', function () {
 
 	// поля для вывода времени
@@ -134,11 +136,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					second--;
 					if (second < 0) {
 						if (minute <= 0) {
-							if (hour === 0) {
+							if (hour <= 0) {
 								runCheck = false;
 								pauseCheck = false;
 								resetCheck = true;
 								clearInterval(interval);
+								audio.play();
 							} else {
 								hour--;
 								minute = 59;
