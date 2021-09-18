@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	let longBreakMinuteValue = longBreakMinute.value;
 	let longBreakSecondValue = longBreakSecond.value;
 
+	const addTaskBtn = document.getElementById('addTaskBtn');
+	const pomodoroTasks = document.getElementById('pomodoroTasks');
+	const addTaskInput = document.getElementById('addTaskInput')
+
 	// сделать неактивными кнопки Pause и Reset при первой загрузке
 	setDisabledTimerButtons(false, true, true);
 
@@ -204,76 +208,81 @@ document.addEventListener('DOMContentLoaded', function () {
 		setDisabledSettings(false);
 	});
 
-		// настройки
+	// настройки
 
-		settingsOpen.addEventListener('click', function () {
-			modalSettings.classList.add('active');
-		});
+	settingsOpen.addEventListener('click', function () {
+		modalSettings.classList.add('active');
+	});
+
+	settingsClose.addEventListener('click', function () {
+		modalSettings.classList.remove('active');
+	});
 	
-		settingsClose.addEventListener('click', function () {
-			modalSettings.classList.remove('active');
-		});
-		
-		settingsSave.addEventListener('click', function () {
-			pomodoroHourValue = pomodoroHour.value;
-			pomodoroMinuteValue = pomodoroMinute.value;
-			pomodoroSecondValue = pomodoroSecond.value;
-			shortBreakHourValue = shortBreakHour.value;
-			shortBreakMinuteValue = shortBreakMinute.value;
-			shortBreakSecondValue = shortBreakSecond.value;
-			longBreakHourValue = longBreakHour.value;
-			longBreakMinuteValue = longBreakMinute.value;
-			longBreakSecondValue = longBreakSecond.value;
-			showChangingSettingsInput(pomodoroHour);
-			showChangingSettingsInput(pomodoroMinute);
-			showChangingSettingsInput(pomodoroSecond);
-			showChangingSettingsInput(shortBreakHour);
-			showChangingSettingsInput(shortBreakMinute);
-			showChangingSettingsInput(shortBreakSecond);
-			showChangingSettingsInput(longBreakHour);
-			showChangingSettingsInput(longBreakMinute);
-			showChangingSettingsInput(longBreakSecond);
-			getTimeFromMode(mode);
-			showTime(hour, timeHour);
-			showTime(minute, timeMinute);
-			showTime(second, timeSecond);
-		});
+	settingsSave.addEventListener('click', function () {
+		pomodoroHourValue = pomodoroHour.value;
+		pomodoroMinuteValue = pomodoroMinute.value;
+		pomodoroSecondValue = pomodoroSecond.value;
+		shortBreakHourValue = shortBreakHour.value;
+		shortBreakMinuteValue = shortBreakMinute.value;
+		shortBreakSecondValue = shortBreakSecond.value;
+		longBreakHourValue = longBreakHour.value;
+		longBreakMinuteValue = longBreakMinute.value;
+		longBreakSecondValue = longBreakSecond.value;
+		showChangingSettingsInput(pomodoroHour);
+		showChangingSettingsInput(pomodoroMinute);
+		showChangingSettingsInput(pomodoroSecond);
+		showChangingSettingsInput(shortBreakHour);
+		showChangingSettingsInput(shortBreakMinute);
+		showChangingSettingsInput(shortBreakSecond);
+		showChangingSettingsInput(longBreakHour);
+		showChangingSettingsInput(longBreakMinute);
+		showChangingSettingsInput(longBreakSecond);
+		getTimeFromMode(mode);
+		showTime(hour, timeHour);
+		showTime(minute, timeMinute);
+		showTime(second, timeSecond);
+	});
 
-		settingsReset.addEventListener('click', function () {
-			pomodoroHour.value = 0;
-			pomodoroMinute.value = 25;
-			pomodoroSecond.value = 0;
-			shortBreakHour.value = 0;
-			shortBreakMinute.value = 5;
-			shortBreakSecond.value = 0;
-			longBreakHour.value = 0;
-			longBreakMinute.value = 15;
-			longBreakSecond.value = 0;
-			pomodoroHourValue = pomodoroHour.value;
-			pomodoroMinuteValue = pomodoroMinute.value;
-			pomodoroSecondValue = pomodoroSecond.value;
-			shortBreakHourValue = shortBreakHour.value;
-			shortBreakMinuteValue = shortBreakMinute.value;
-			shortBreakSecondValue = shortBreakSecond.value;
-			longBreakHourValue = longBreakHour.value;
-			longBreakMinuteValue = longBreakMinute.value;
-			longBreakSecondValue = longBreakSecond.value;
-			showChangingSettingsInput(pomodoroHour);
-			showChangingSettingsInput(pomodoroMinute);
-			showChangingSettingsInput(pomodoroSecond);
-			showChangingSettingsInput(shortBreakHour);
-			showChangingSettingsInput(shortBreakMinute);
-			showChangingSettingsInput(shortBreakSecond);
-			showChangingSettingsInput(longBreakHour);
-			showChangingSettingsInput(longBreakMinute);
-			showChangingSettingsInput(longBreakSecond);
-			getTimeFromMode(mode);
-			showTime(hour, timeHour);
-			showTime(minute, timeMinute);
-			showTime(second, timeSecond);
-		});
+	settingsReset.addEventListener('click', function () {
+		pomodoroHour.value = 0;
+		pomodoroMinute.value = 25;
+		pomodoroSecond.value = 0;
+		shortBreakHour.value = 0;
+		shortBreakMinute.value = 5;
+		shortBreakSecond.value = 0;
+		longBreakHour.value = 0;
+		longBreakMinute.value = 15;
+		longBreakSecond.value = 0;
+		pomodoroHourValue = pomodoroHour.value;
+		pomodoroMinuteValue = pomodoroMinute.value;
+		pomodoroSecondValue = pomodoroSecond.value;
+		shortBreakHourValue = shortBreakHour.value;
+		shortBreakMinuteValue = shortBreakMinute.value;
+		shortBreakSecondValue = shortBreakSecond.value;
+		longBreakHourValue = longBreakHour.value;
+		longBreakMinuteValue = longBreakMinute.value;
+		longBreakSecondValue = longBreakSecond.value;
+		showChangingSettingsInput(pomodoroHour);
+		showChangingSettingsInput(pomodoroMinute);
+		showChangingSettingsInput(pomodoroSecond);
+		showChangingSettingsInput(shortBreakHour);
+		showChangingSettingsInput(shortBreakMinute);
+		showChangingSettingsInput(shortBreakSecond);
+		showChangingSettingsInput(longBreakHour);
+		showChangingSettingsInput(longBreakMinute);
+		showChangingSettingsInput(longBreakSecond);
+		getTimeFromMode(mode);
+		showTime(hour, timeHour);
+		showTime(minute, timeMinute);
+		showTime(second, timeSecond);
+	});
+	
+	// to do list
 
-
+	addTaskBtn.addEventListener('click', function () {
+		pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '"><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
+		addTaskInput.value = '';
+	});
 
 	// вывод времени (нужно ли подставить ноль перед значением)
 	function showTime(value, elem) {

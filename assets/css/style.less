@@ -14,7 +14,7 @@ body {
 }
 .wrapper {
     width: 100%;
-    max-width: 1140px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -79,12 +79,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 100%;
     background-color: fadeout(@secondary-color, 90%);
     padding: 40px;
-    @media (max-width: 600px) {
-        width: 100%;
-    }
+    margin: 0 0 40px 0;
+
 }
 .pomodoro__modes {
     display: flex;
@@ -199,6 +198,133 @@ body {
         animation: none;
     }
 }
+
+.pomodoro__todolist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.pomodoro__title {
+    width: 100%;
+    font-size: 24px;
+    text-align: center;
+    border-bottom: 1px solid fadeout(@secondary-color, 60%);
+    padding: 0 0 10px 0;
+    margin: 0 0 20px 0;
+}
+.pomodoro__addtask {
+    width: 100%;
+    position: relative;
+    input {
+        width: 100%;
+        background-color: fadeout(@secondary-color, 80%);
+        color: @secondary-color;
+        border: none;
+        outline: none;
+        padding: 10px;
+    }
+    input::placeholder {
+        color: fadeout(@secondary-color, 50%);
+    }
+    button {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        top: 0;
+        right: 10px;
+        transform: translateY(50%);
+        cursor: pointer;
+    }
+    button::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 20px;
+        top: 0;
+        right: 50%;
+        background-color: @secondary-color;
+        transform: translateX(50%);
+    }
+    button::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        top: 50%;
+        right: 0;
+        background-color: @secondary-color;
+        transform: translateY(-50%);
+    }
+    button:hover::before, button:hover::after {
+        background-color: fadeout(@secondary-color, 20%);
+    }
+    button:active::before, button:active::after {
+        background-color: fadeout(@secondary-color, 40%);
+    }
+}
+.pomodoro__tasks {
+    width: 100%;
+}
+.pomodoro__task {
+    width: 100%;
+    position: relative;
+    margin: 10px 0 0 0;
+    input {
+        width: 100%;
+        background-color: fadeout(@secondary-color, 80%);
+        color: @secondary-color;
+        border: none;
+        outline: none;
+        padding: 10px;
+    }
+    input::placeholder {
+        color: fadeout(@secondary-color, 50%);
+    }
+    button {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        top: 0;
+        right: 10px;
+        transform: translateY(50%);
+        cursor: pointer;
+    }
+    button::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 20px;
+        top: 0;
+        right: 50%;
+        background-color: @secondary-color;
+        transform: translateX(50%) rotate(45deg);
+    }
+    button::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        top: 50%;
+        right: 0;
+        background-color: @secondary-color;
+        transform: translateY(-50%) rotate(45deg);
+    }
+    button:hover::before, button:hover::after {
+        background-color: fadeout(@secondary-color, 20%);
+    }
+    button:active::before, button:active::after {
+        background-color: fadeout(@secondary-color, 40%);
+    }
+}
+
 .modal {
     display: none;
 	color: darken(@secondary-color, 50%);
