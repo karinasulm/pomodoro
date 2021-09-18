@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	let minuteReserv = 0;
 	let secondReserv = 0;
 
-
+	setDisabledTimerButtons(false, true, true);
 
 	// выбор режима помодоро
     pomodoro.addEventListener('click', function () {
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		runCheck = false;
 		pauseCheck = false;
 		resetCheck = true;
-		setDisabledTimerButtons(false, false, false);
+		setDisabledTimerButtons(false, true, true);
 		setDisabledModeButtons(false);
 		resetTimeReserv();
 		getTimeFromMode(mode, hour, minute, second);
