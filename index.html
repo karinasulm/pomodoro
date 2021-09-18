@@ -15,7 +15,7 @@
             <a href="" class="header__logo">pomodoro</a>
             <nav class="header__nav">
                 <button class="header__link" id="settingsOpen">Settings</button>
-                <button class="header__link">About</button>
+                <button class="header__link" id="aboutOpen">About</button>
             </nav>
         </div>
     </div>
@@ -50,7 +50,7 @@
         <div class="modal__dialog">
             <button class="modal__close" id="settingsClose"></button>
             <h2 class="modal__title">Settings</h2>
-            <form action="/" class="settings">
+            <div class="settings">
                 <div class="settings__item">
                     <label>Pomodoro</label>
                     <div class="settings__time">
@@ -76,10 +76,10 @@
                     </div>
                 </div>
                 <div class="settings__buttons">
-                    <button class="settings__btn">Save</button>
-                    <button class="settings__btn">Reset</button>
+                    <button class="settings__btn" id="settingsSave">Save</button>
+                    <button class="settings__btn" id="settingsReset">Reset</button>
                 </div>
-            </form>
+            </в>
         </div>
     </div>
 </div>

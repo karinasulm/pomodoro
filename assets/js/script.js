@@ -35,6 +35,35 @@ document.addEventListener('DOMContentLoaded', function () {
 	let minuteReserv = 0;
 	let secondReserv = 0;
 
+	// модальное окно Settings
+	const settingsOpen = document.getElementById('settingsOpen');
+	const settingsClose = document.getElementById('settingsClose');
+	const modalSettings = document.getElementById('modalSettings');
+	const settingsSave = document.getElementById('settingsSave');
+
+	const pomodoroHour = document.getElementById('pomodoroHour');
+	const pomodoroMinute = document.getElementById('pomodoroMinute');
+	const pomodoroSecond = document.getElementById('pomodoroSecond');
+
+	const shortBreakHour = document.getElementById('shortBreakHour');
+	const shortBreakMinute = document.getElementById('shortBreakMinute');
+	const shortBreakSecond = document.getElementById('shortBreakSecond');
+
+	const longBreakHour = document.getElementById('longBreakHour');
+	const longBreakMinute = document.getElementById('longBreakMinute');
+	const longBreakSecond = document.getElementById('longBreakSecond');
+
+	let pomodoroHourValue = pomodoroHour.value;
+	let pomodoroMinuteValue = pomodoroMinute.value;
+	let pomodoroSecondValue = pomodoroSecond.value;
+	let shortBreakHourValue = shortBreakHour.value;
+	let shortBreakMinuteValue = shortBreakMinute.value;
+	let shortBreakSecondValue = shortBreakSecond.value;
+	let longBreakHourValue = longBreakHour.value;
+	let longBreakMinuteValue = longBreakMinute.value;
+	let longBreakSecondValue = longBreakSecond.value;
+
+	// сделать неактивными кнопки Pause и Reset при первой загрузке
 	setDisabledTimerButtons(false, true, true);
 
 	// выбор режима помодоро
@@ -75,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setCurrentMode(mode);
         }
     });
-	
+
 	// запуск таймера
 	run.addEventListener('click', function () {
 		// проверка не запущен ли уже таймер (во избежании повторного нажатия)
@@ -176,17 +205,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				minute = minuteReserv;
 				second = secondReserv;
 			} else if (mode === 1) {
-				hour = 0;
-				minute = 25;
-				second = 0;
+				hour = pomodoroHourValue;
+				minute = pomodoroMinuteValue;
+				second = pomodoroSecondValue;
 			} else if (mode === 2) {
-				hour = 0;
-				minute = 5;
-				second = 0;
+				hour = shortBreakHourValue;
+				minute = shortBreakMinuteValue;
+				second = shortBreakSecondValue;
 			} else {
-				hour = 0;
-				minute = 15;
-				second = 0;
+				hour = longBreakHourValue;
+				minute = longBreakMinuteValue;
+				second = longBreakSecondValue;
 			}
 			return [hour, minute, second];
     }
@@ -256,10 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// настройки
 
-	const settingsOpen = document.getElementById('settingsOpen');
-	const settingsClose = document.getElementById('settingsClose');
-	const modalSettings = document.getElementById('modalSettings');
-
 	settingsOpen.addEventListener('click', function () {
 		modalSettings.classList.add('active');
 	});
@@ -268,4 +293,46 @@ document.addEventListener('DOMContentLoaded', function () {
 		modalSettings.classList.remove('active');
 	});
 	
+	settingsSave.addEventListener('click', function () {
+		pomodoroHourValue = pomodoroHour.value;
+		pomodoroMinuteValue = pomodoroMinute.value;
+		pomodoroSecondValue = pomodoroSecond.value;
+		shortBreakHourValue = shortBreakHour.value;
+		shortBreakMinuteValue = shortBreakMinute.value;
+		shortBreakSecondValue = shortBreakSecond.value;
+		longBreakHourValue = longBreakHour.value;
+		longBreakMinuteValue = longBreakMinute.value;
+		longBreakSecondValue = longBreakSecond.value;
+		getTimeFromMode(mode);
+    	showTime(hour, timeHour);
+        showTime(minute, timeMinute);
+        showTime(second, timeSecond);
+		modalSettings.classList.remove('active');
+	});
+	settingsReset.addEventListener('click', function () {
+		pomodoroHour.value = 0;
+		pomodoroHourValue = pomodoroHour.value;
+		pomodoroMinute.value = 25;
+		pomodoroMinuteValue = pomodoroMinute.value;
+		pomodoroSecond.value = 0;
+		pomodoroSecondValue = pomodoroSecond.value;
+		shortBreakHour.value = 0;
+		shortBreakHourValue = shortBreakHour.value;
+		shortBreakMinute.value = 5;
+		shortBreakMinuteValue = shortBreakMinute.value;
+		shortBreakSecond.value = 0;
+		shortBreakSecondValue = shortBreakSecond.value;
+		longBreakHour.value = 0;
+		longBreakHourValue = longBreakHour.value;
+		longBreakMinute.value = 15;
+		longBreakMinuteValue = longBreakMinute.value;
+		longBreakSecond.value = 0;
+		longBreakSecondValue = longBreakSecond.value;
+		getTimeFromMode(mode);
+    	showTime(hour, timeHour);
+        showTime(minute, timeMinute);
+        showTime(second, timeSecond);
+		modalSettings.classList.remove('active');
+	});
+
 });
