@@ -142,6 +142,16 @@ document.addEventListener('DOMContentLoaded', function () {
 								resetCheck = true;
 								clearInterval(interval);
 								audio.play();
+								setTimeout(function () {
+									setDisabledTimerButtons(false, true, true);
+									setDisabledModeButtons(false);
+									resetTimeReserv();
+									getTimeFromMode(mode, hour, minute, second);
+									showTime(hour, timeHour);
+									showTime(minute, timeMinute);
+									showTime(second, timeSecond);
+									setDisabledSettings(false);
+								},1000);
 							} else {
 								hour--;
 								minute = 59;
