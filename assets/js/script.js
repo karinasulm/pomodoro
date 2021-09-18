@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     pomodoro.addEventListener('click', function () {
         if (resetCheck === true) {
             mode = 1;
+			document.body.style.backgroundColor = '#e76f51';
             getTimeFromMode(mode);
             showTime(hour, timeHour);
             showTime(minute, timeMinute);
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     shortBreak.addEventListener('click', function () {
         if (resetCheck === true) {
             mode = 2;
+			document.body.style.backgroundColor = '#468faf';
             getTimeFromMode(mode);
             showTime(hour, timeHour);
             showTime(minute, timeMinute);
@@ -67,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     longBreak.addEventListener('click', function () {
         if (resetCheck === true) {
             mode = 3;
+			document.body.style.backgroundColor = '#4d908e';
             getTimeFromMode(mode);
             showTime(hour, timeHour);
             showTime(minute, timeMinute);

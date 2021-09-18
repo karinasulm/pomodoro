@@ -1,37 +1,37 @@
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Raleway';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_cJD7g4.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/raleway/v22/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVuEooCP.ttf) format('truetype');
 }
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Raleway';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTUSjIg1_i6t8kCHKm45xW4.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/raleway/v22/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaooCP.ttf) format('truetype');
 }
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Raleway';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_ZpC7g4.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/raleway/v22/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvoooCP.ttf) format('truetype');
 }
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Raleway';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_bZF7g4.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/raleway/v22/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVsEpYCP.ttf) format('truetype');
 }
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Raleway';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v18/JTURjIg1_i6t8kCHKm45_dJE7g4.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/raleway/v22/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVs9pYCP.ttf) format('truetype');
 }
 *,
 *::before,
@@ -41,9 +41,9 @@
   padding: 0;
 }
 body {
-  background-color: #c32f27;
-  color: #e5e5e5;
-  font-family: 'Montserrat', sans-serif;
+  background-color: #e76f51;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
 }
 .wrapper {
@@ -60,7 +60,7 @@ body {
   justify-content: space-between;
 }
 .header__logo {
-  color: #e5e5e5;
+  color: #fff;
   font-size: 22px;
   font-weight: 700;
   text-decoration: none;
@@ -69,20 +69,34 @@ body {
   display: flex;
 }
 .header__link {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
   padding: 10px 20px;
   margin: 0 20px 0 0;
-  background-color: rgba(252, 238, 237, 0.1);
-  color: #e5e5e5;
-  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 .header__link:last-child {
   margin: 0;
 }
-.header__link:hover {
-  background-color: rgba(252, 238, 237, 0.15);
+.header__link::after {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: -30px;
+  transform: skew(-30deg);
+  transition: left 0.4s ease;
+}
+.header__link:hover::after {
+  animation: moveLightOnBtn 0.4s ease;
 }
 .header__link:active {
-  background-color: rgba(252, 238, 237, 0.2);
+  transform: scale(0.95);
 }
 .section {
   padding: 40px 0;
@@ -97,51 +111,8 @@ body {
   flex-direction: column;
   align-items: center;
   width: 80%;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 40px;
-  background-color: rgba(252, 238, 237, 0.1);
-  border-radius: 10px;
-}
-.pomodoro__body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-  margin: 40px 0;
-  border: 5px solid #e5e5e5;
-  border-radius: 50%;
-}
-.pomodoro__body span {
-  font-size: 60px;
-  color: #e5e5e5;
-}
-.pomodoro__buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.pomodoro__btn {
-  position: relative;
-  padding: 10px 40px;
-  margin: 0 20px 0 0;
-  background-color: #e5e5e5;
-  color: #c32f27;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
-  outline: none;
-  line-height: 1;
-  text-decoration: none;
-  cursor: pointer;
-}
-.pomodoro__btn:last-child {
-  margin: 0;
-}
-.pomodoro__btn:hover {
-  box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.3);
-}
-.pomodoro__btn:active {
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 .pomodoro__modes {
   display: flex;
@@ -150,24 +121,85 @@ body {
 }
 .pomodoro__mode {
   position: relative;
-  margin: 0 20px 0 0;
   background-color: transparent;
-  color: #e5e5e5;
+  color: #fff;
   border: none;
   outline: none;
   line-height: 1;
   text-decoration: none;
+  margin: 0 20px 0 0;
   cursor: pointer;
 }
 .pomodoro__mode:last-child {
   margin: 0;
 }
 .pomodoro__mode:hover {
-  color: #d8d8d8;
+  color: #f2f2f2;
 }
 .pomodoro__mode:active {
-  color: #cccccc;
+  color: #e6e6e6;
 }
 .pomodoro__mode.current {
   font-weight: 700;
+}
+.pomodoro__body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 320px;
+  border: 10px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  margin: 40px 0;
+}
+.pomodoro__body span {
+  font-size: 60px;
+  color: #fff;
+}
+.pomodoro__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pomodoro__btn {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  outline: none;
+  line-height: 1;
+  text-decoration: none;
+  padding: 10px 40px;
+  margin: 0 30px 0 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.pomodoro__btn:last-child {
+  margin: 0;
+}
+.pomodoro__btn::after {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: -30px;
+  transform: skew(-30deg);
+  transition: left 0.4s ease;
+}
+.pomodoro__btn:hover::after {
+  animation: moveLightOnBtn 0.4s ease;
+}
+.pomodoro__btn:active {
+  transform: scale(0.95);
+}
+@keyframes moveLightOnBtn {
+  from {
+    left: -20px;
+  }
+  to {
+    left: calc(100% + 30px);
+  }
 }
