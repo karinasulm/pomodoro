@@ -117,6 +117,11 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
   padding: 40px;
 }
+@media (max-width: 600px) {
+  .pomodoro__timer {
+    width: 100%;
+  }
+}
 .pomodoro__modes {
   display: flex;
   justify-content: center;
@@ -130,8 +135,15 @@ body {
   outline: none;
   line-height: 1;
   text-decoration: none;
+  text-align: center;
   margin: 0 20px 0 0;
   cursor: pointer;
+}
+@media (max-width: 600px) {
+  .pomodoro__mode {
+    font-size: 14px;
+    margin: 0 15px 0 0;
+  }
 }
 .pomodoro__mode:last-child {
   margin: 0;
@@ -165,10 +177,27 @@ body {
   font-size: 60px;
   color: #fff;
 }
+@media (max-width: 800px) {
+  .pomodoro__body span {
+    font-size: 40px;
+  }
+}
+@media (max-width: 600px) {
+  .pomodoro__body {
+    width: 200px;
+    height: 200px;
+    border: 5px solid rgba(255, 255, 255, 0.7);
+  }
+}
 .pomodoro__buttons {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 600px) {
+  .pomodoro__buttons {
+    flex-direction: column;
+  }
 }
 .pomodoro__btn {
   position: relative;
@@ -183,6 +212,12 @@ body {
   cursor: pointer;
   overflow: hidden;
   transition: all 0.2s ease;
+}
+@media (max-width: 600px) {
+  .pomodoro__btn {
+    width: 200px;
+    margin: 0 0 20px 0;
+  }
 }
 .pomodoro__btn:last-child {
   margin: 0;
