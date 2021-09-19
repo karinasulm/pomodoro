@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const settingsClose = document.getElementById('settingsClose');
 	const modalSettings = document.getElementById('modalSettings');
 	const settingsSave = document.getElementById('settingsSave');
+	const settingsReset = document.getElementById('settingsReset');
 
 	const pomodoroHour = document.getElementById('pomodoroHour');
 	const pomodoroMinute = document.getElementById('pomodoroMinute');
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	let longBreakMinuteValue = longBreakMinute.value;
 	let longBreakSecondValue = longBreakSecond.value;
 
+	// to do list
 	const addTaskBtn = document.getElementById('addTaskBtn');
 	const pomodoroTasks = document.getElementById('pomodoroTasks');
 	const addTaskInput = document.getElementById('addTaskInput')
@@ -278,26 +280,71 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 	
 	// to do list
+
+	// если localStorage пустой
 	if (localStorage.getItem('todolist') === null) {
 		localStorage.setItem('todolist', '');
-	}
-	pomodoroTasks.innerHTML = localStorage.todolist;
-	let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
-	for (let i = 0; i < pomodoroTaskdelete.length; i++) {
-		pomodoroTaskdelete[i].addEventListener('click', function () {
-			localStorage.todolist = pomodoroTasks.innerHTML;
-		});
-	}
-
-	addTaskBtn.addEventListener('click', function () {
-		pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '"><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
-		addTaskInput.value = '';
-		localStorage.todolist = pomodoroTasks.innerHTML;
+	} else {
+		// иначе подгружаем задачи из localStorage
+		pomodoroTasks.innerHTML = localStorage.todolist;
+		// на кнопку удаления на каждой задаче вешаем событие обновлять localStorage
 		let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
 		for (let i = 0; i < pomodoroTaskdelete.length; i++) {
 			pomodoroTaskdelete[i].addEventListener('click', function () {
 				localStorage.todolist = pomodoroTasks.innerHTML;
 			});
+		}
+		// на кнопку редактирования на каждой задаче вешаем событие редактировать поле и обновлять localStorage
+		let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
+		for (let i = 0; i < pomodoroTaskedit.length; i++) {
+			pomodoroTaskedit[i].addEventListener('click', function () {
+				if (pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled === true) {
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = false;
+				} else {
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = true;
+				}
+				pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].addEventListener('change', function () {
+					let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;;
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
+					localStorage.todolist = pomodoroTasks.innerHTML;
+				});
+			});
+		}
+	}
+
+	// событие добавления новой задачи
+	addTaskBtn.addEventListener('click', function () {
+		// проверка, что поле для добавления задачи не пустое
+		if (addTaskInput.value !== '') {
+			pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '" disabled><button class="pomodoro__taskedit"></button><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
+			// сброс поля добавления новой задачи
+			addTaskInput.value = '';
+			//обновление localStorage
+			localStorage.todolist = pomodoroTasks.innerHTML;
+			// на кнопку удаления на каждой задаче вешаем событие обновлять localStorage
+			let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
+			for (let i = 0; i < pomodoroTaskdelete.length; i++) {
+				pomodoroTaskdelete[i].addEventListener('click', function () {
+					localStorage.todolist = pomodoroTasks.innerHTML;
+				});
+			}
+			// на кнопку редактирования на каждой задаче вешаем событие редактировать поле и обновлять localStorage
+			let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
+			for (let i = 0; i < pomodoroTaskedit.length; i++) {
+				pomodoroTaskedit[i].addEventListener('click', function () {
+					if (pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled === true) {
+						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = false;
+					} else {
+						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = true;
+					}
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].addEventListener('change', function () {
+						let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;;
+						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
+						localStorage.todolist = pomodoroTasks.innerHTML;
+					});
+				});
+			}
+
 		}
 	});
 
@@ -395,6 +442,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		secondReserv = 0;
 	}
 
+	// установить/убрать disabled в настройках
 	function setDisabledSettings(check) {
 		settingsSave.disabled = check;
 		settingsReset.disabled = check;
@@ -409,6 +457,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		longBreakSecond.disabled = check;
 	}
 
+	// при сохранении/сбросе настроек показ пользователю изменение полей
 	function showChangingSettingsInput(elem) {
 		elem.style.outline = '1px solid rgba(255, 255, 255, 0.6)';
 			setTimeout(function () {
