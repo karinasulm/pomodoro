@@ -330,6 +330,9 @@ body {
 .pomodoro__task input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+.pomodoro__task input:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+}
 .pomodoro__task button {
   position: absolute;
   width: 20px;
@@ -338,11 +341,14 @@ body {
   border: none;
   outline: none;
   top: 0;
-  right: 10px;
+  right: 0;
   transform: translateY(50%);
   cursor: pointer;
 }
-.pomodoro__task button::before {
+.pomodoro__task .pomodoro__taskdelete {
+  right: 10px;
+}
+.pomodoro__task .pomodoro__taskdelete::before {
   content: '';
   position: absolute;
   width: 2px;
@@ -352,7 +358,7 @@ body {
   background-color: #fff;
   transform: translateX(50%) rotate(45deg);
 }
-.pomodoro__task button::after {
+.pomodoro__task .pomodoro__taskdelete::after {
   content: '';
   position: absolute;
   width: 20px;
@@ -362,19 +368,22 @@ body {
   background-color: #fff;
   transform: translateY(-50%) rotate(45deg);
 }
-.pomodoro__task button:hover::before,
-.pomodoro__task button:hover::after {
+.pomodoro__task .pomodoro__taskdelete:hover::before,
+.pomodoro__task .pomodoro__taskdelete:hover::after {
   background-color: rgba(255, 255, 255, 0.8);
 }
-.pomodoro__task button:active::before,
-.pomodoro__task button:active::after {
+.pomodoro__task .pomodoro__taskdelete:active::before,
+.pomodoro__task .pomodoro__taskdelete:active::after {
   background-color: rgba(255, 255, 255, 0.6);
-}
-.pomodoro__task .pomodoro__taskdelete {
-  right: 10px;
 }
 .pomodoro__task .pomodoro__taskedit {
   right: 40px;
+  background-image: url(../img/save-regular.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.pomodoro__task input:disabled + .pomodoro__taskedit {
+  background-image: url(../img/pencil-alt-solid.svg);
 }
 .modal {
   display: none;

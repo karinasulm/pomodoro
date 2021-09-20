@@ -285,6 +285,9 @@ body {
     input::placeholder {
         color: fadeout(@secondary-color, 50%);
     }
+    input:focus {
+        outline: 2px solid fadeout(@secondary-color, 50%);
+    }
     button {
         position: absolute;
         width: 20px;
@@ -293,11 +296,14 @@ body {
         border: none;
         outline: none;
         top: 0;
-        right: 10px;
+        right: 0;
         transform: translateY(50%);
         cursor: pointer;
     }
-    button::before {
+    .pomodoro__taskdelete {
+        right: 10px;
+    }
+    .pomodoro__taskdelete::before {
         content: '';
         position: absolute;
         width: 2px;
@@ -307,7 +313,7 @@ body {
         background-color: @secondary-color;
         transform: translateX(50%) rotate(45deg);
     }
-    button::after {
+    .pomodoro__taskdelete::after {
         content: '';
         position: absolute;
         width: 20px;
@@ -317,17 +323,20 @@ body {
         background-color: @secondary-color;
         transform: translateY(-50%) rotate(45deg);
     }
-    button:hover::before, button:hover::after {
+    .pomodoro__taskdelete:hover::before, .pomodoro__taskdelete:hover::after {
         background-color: fadeout(@secondary-color, 20%);
     }
-    button:active::before, button:active::after {
+    .pomodoro__taskdelete:active::before, .pomodoro__taskdelete:active::after {
         background-color: fadeout(@secondary-color, 40%);
-    }
-    .pomodoro__taskdelete {
-        right: 10px;
     }
     .pomodoro__taskedit {
         right: 40px;
+        background-image: url(../img/save-regular.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    input:disabled + .pomodoro__taskedit {
+        background-image: url(../img/pencil-alt-solid.svg);
     }
 }
 

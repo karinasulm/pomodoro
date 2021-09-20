@@ -281,6 +281,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	// to do list
 
+	function editTask() {
+
+		// на кнопку редактирования на каждой задаче вешаем событие редактировать поле и обновлять localStorage
+		let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
+		for (let i = 0; i < pomodoroTaskedit.length; i++) {
+			pomodoroTaskedit[i].addEventListener('click', function () {
+				if (pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled === true) {
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = false;
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].focus();
+				} else {
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = true;
+					let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
+					localStorage.todolist = pomodoroTasks.innerHTML;
+				}
+			});
+		}
+
+	}
+
+
 	// если localStorage пустой
 	if (localStorage.getItem('todolist') === null) {
 		localStorage.setItem('todolist', '');
@@ -291,25 +312,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
 		for (let i = 0; i < pomodoroTaskdelete.length; i++) {
 			pomodoroTaskdelete[i].addEventListener('click', function () {
+				editTask();
 				localStorage.todolist = pomodoroTasks.innerHTML;
 			});
 		}
-		// на кнопку редактирования на каждой задаче вешаем событие редактировать поле и обновлять localStorage
-		let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
-		for (let i = 0; i < pomodoroTaskedit.length; i++) {
-			pomodoroTaskedit[i].addEventListener('click', function () {
-				if (pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled === true) {
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = false;
-				} else {
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = true;
-				}
-				pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].addEventListener('change', function () {
-					let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;;
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
-					localStorage.todolist = pomodoroTasks.innerHTML;
-				});
-			});
-		}
+		editTask();
 	}
 
 	// событие добавления новой задачи
@@ -326,24 +333,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			for (let i = 0; i < pomodoroTaskdelete.length; i++) {
 				pomodoroTaskdelete[i].addEventListener('click', function () {
 					localStorage.todolist = pomodoroTasks.innerHTML;
+					editTask();
 				});
 			}
-			// на кнопку редактирования на каждой задаче вешаем событие редактировать поле и обновлять localStorage
-			let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
-			for (let i = 0; i < pomodoroTaskedit.length; i++) {
-				pomodoroTaskedit[i].addEventListener('click', function () {
-					if (pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled === true) {
-						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = false;
-					} else {
-						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = true;
-					}
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].addEventListener('change', function () {
-						let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;;
-						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
-						localStorage.todolist = pomodoroTasks.innerHTML;
-					});
-				});
-			}
+			editTask();
 
 		}
 	});
