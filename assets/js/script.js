@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// work of timer
 	run.addEventListener('click', function () {
-		// проверка не запущен ли уже таймер (во избежании повторного нажатия)
 		if (runCheck === false) {
 			runCheck = true;
 			pauseCheck = false;
@@ -174,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 	pause.addEventListener('click', function () {
-		// проверка, запущен ли таймер, чтобы поставить его на паузу
         if (runCheck === true) {
 			runCheck = false;
 			pauseCheck = true;
@@ -440,9 +438,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		for (let i = 0; i < pomodoroTaskedit.length; i++) {
 			pomodoroTaskedit[i].addEventListener('click', function () {
 				modalEditTask.classList.add('active');
-				console.log(editTaskInput.value);
 				editTaskInput.value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;
-				console.log(editTaskInput.value);
 				editTaskSave.addEventListener('click', function () {
 					modalEditTask.classList.remove('active');
 					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value = editTaskInput.value;
