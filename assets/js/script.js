@@ -1,61 +1,48 @@
 'use strict'
 
-let audio = document.getElementById('audio');
-
 document.addEventListener('DOMContentLoaded', function () {
 
-	// поля для вывода времени
+	const pomodoro = document.getElementById('pomodoro');
+    const shortBreak = document.getElementById('shortBreak');
+    const longBreak = document.getElementById('longBreak');
 	const timeHour = document.getElementById('timeHour');
 	const timeMinute = document.getElementById('timeMinute');
 	const timeSecond = document.getElementById('timeSecond');
-	
-	// кнопки управления таймером
 	const run = document.getElementById('run');
 	const pause = document.getElementById('pause');
 	const reset = document.getElementById('reset');
 
-	// переменные для проверки, была ли нажата какая либо кнопка управления таймером
+	let mode = 1; // 1 - pomodoro, 2 - short break, 3 - long break
+
 	let runCheck = false;
 	let pauseCheck = false;
 	let resetCheck = true;
 
-	// кнопки выбора режима
-    const pomodoro = document.getElementById('pomodoro');
-    const shortBreak = document.getElementById('shortBreak');
-    const longBreak = document.getElementById('longBreak');
-
-	// режим (1 - помодоро, 2 - короткий перерыв, 3 - длинный перерыв)
-	let mode = 1;
-	
-	// переменные для текущего времени
+	// current time
 	let hour = 0;
 	let minute = 25;
 	let second = 0;
-	
-	// переменные для сохранения времени на случай паузы
-	let hourReserv = 0;
-	let minuteReserv = 0;
-	let secondReserv = 0;
 
-	// модальное окно Settings
+	// standby time
+	let standbyHour = 0;
+	let standbyMinute = 0;
+	let standbySecond = 0;
+
+	// settings
 	const settingsOpen = document.getElementById('settingsOpen');
 	const settingsClose = document.getElementById('settingsClose');
 	const modalSettings = document.getElementById('modalSettings');
 	const settingsSave = document.getElementById('settingsSave');
 	const settingsReset = document.getElementById('settingsReset');
-
 	const pomodoroHour = document.getElementById('pomodoroHour');
 	const pomodoroMinute = document.getElementById('pomodoroMinute');
 	const pomodoroSecond = document.getElementById('pomodoroSecond');
-
 	const shortBreakHour = document.getElementById('shortBreakHour');
 	const shortBreakMinute = document.getElementById('shortBreakMinute');
 	const shortBreakSecond = document.getElementById('shortBreakSecond');
-
 	const longBreakHour = document.getElementById('longBreakHour');
 	const longBreakMinute = document.getElementById('longBreakMinute');
 	const longBreakSecond = document.getElementById('longBreakSecond');
-
 	let pomodoroHourValue = pomodoroHour.value;
 	let pomodoroMinuteValue = pomodoroMinute.value;
 	let pomodoroSecondValue = pomodoroSecond.value;
@@ -69,12 +56,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	// to do list
 	const addTaskBtn = document.getElementById('addTaskBtn');
 	const pomodoroTasks = document.getElementById('pomodoroTasks');
-	const addTaskInput = document.getElementById('addTaskInput')
+	const addTaskInput = document.getElementById('addTaskInput');
 
-	// сделать неактивными кнопки Pause и Reset при первой загрузке
+	// audio
+	let audio = document.getElementById('audio');
+
+	// edit task
+	const editTaskInput = document.getElementById('editTaskInput');
+	const editTaskSave = document.getElementById('editTaskSave');
+	const editTaskClose = document.getElementById('editTaskClose');
+
+	// make buttons "pause" and "end" inactive - default settings for start
 	setDisabledTimerButtons(false, true, true);
 
-	// выбор режима помодоро
+	// choice a mode
     pomodoro.addEventListener('click', function () {
         if (resetCheck === true) {
             mode = 1;
@@ -86,8 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setCurrentMode(mode);
         }
     });
-
-	// выбор режима короткого перерыва
     shortBreak.addEventListener('click', function () {
         if (resetCheck === true) {
             mode = 2;
@@ -99,8 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setCurrentMode(mode);
         }
     });
-
-	// выбор режима длинного перерыва
     longBreak.addEventListener('click', function () {
         if (resetCheck === true) {
             mode = 3;
@@ -113,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-	// запуск таймера
+	// work of timer
 	run.addEventListener('click', function () {
 		// проверка не запущен ли уже таймер (во избежании повторного нажатия)
 		if (runCheck === false) {
@@ -136,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					runCheck = false;
 					resetCheck = false;
 					pauseCheck = false;
-					setTimeReserv(hour, minute, second);
+					setStandbyTime(hour, minute, second);
 					clearInterval(interval);
 				} else {
 					second--;
@@ -151,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								setTimeout(function () {
 									setDisabledTimerButtons(false, true, true);
 									setDisabledModeButtons(false);
-									resetTimeReserv();
+									resetStandbyTime();
 									getTimeFromMode(mode, hour, minute, second);
 									showTime(hour, timeHour);
 									showTime(minute, timeMinute);
@@ -182,8 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			}, 1000);
 		}
 	});
-
-	// пауза таймера
 	pause.addEventListener('click', function () {
 		// проверка, запущен ли таймер, чтобы поставить его на паузу
         if (runCheck === true) {
@@ -194,15 +183,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			setDisabledModeButtons(true);
 		}
 	});
-
-	// сброс таймера
 	reset.addEventListener('click', function () {
 		runCheck = false;
 		pauseCheck = false;
 		resetCheck = true;
 		setDisabledTimerButtons(false, true, true);
 		setDisabledModeButtons(false);
-		resetTimeReserv();
+		resetStandbyTime();
 		getTimeFromMode(mode, hour, minute, second);
         showTime(hour, timeHour);
 		showTime(minute, timeMinute);
@@ -210,16 +197,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		setDisabledSettings(false);
 	});
 
-	// настройки
+	if (runCheck === true || pauseCheck === true) {
+		window.addEventListener('beforeunload', function (event) {
+			event.preventDefault();
+			event.returnValue = '';
+		});
+	}
 
+	// settings
 	settingsOpen.addEventListener('click', function () {
 		modalSettings.classList.add('active');
 	});
-
 	settingsClose.addEventListener('click', function () {
 		modalSettings.classList.remove('active');
 	});
-	
 	settingsSave.addEventListener('click', function () {
 		pomodoroHourValue = pomodoroHour.value;
 		pomodoroMinuteValue = pomodoroMinute.value;
@@ -244,7 +235,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		showTime(minute, timeMinute);
 		showTime(second, timeSecond);
 	});
-
 	settingsReset.addEventListener('click', function () {
 		pomodoroHour.value = 0;
 		pomodoroMinute.value = 25;
@@ -280,68 +270,33 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 	
 	// to do list
-
-	function editTask() {
-
-		// на кнопку редактирования на каждой задаче вешаем событие редактировать поле и обновлять localStorage
-		let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
-		for (let i = 0; i < pomodoroTaskedit.length; i++) {
-			pomodoroTaskedit[i].addEventListener('click', function () {
-				if (pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled === true) {
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = false;
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].focus();
-				} else {
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].disabled = true;
-					let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;
-					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
-					localStorage.todolist = pomodoroTasks.innerHTML;
-				}
-			});
-		}
-
-	}
-
-
-	// если localStorage пустой
 	if (localStorage.getItem('todolist') === null) {
 		localStorage.setItem('todolist', '');
 	} else {
-		// иначе подгружаем задачи из localStorage
 		pomodoroTasks.innerHTML = localStorage.todolist;
 		// на кнопку удаления на каждой задаче вешаем событие обновлять localStorage
 		let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
 		for (let i = 0; i < pomodoroTaskdelete.length; i++) {
 			pomodoroTaskdelete[i].addEventListener('click', function () {
-				editTask();
+				addEditingTask();
 				localStorage.todolist = pomodoroTasks.innerHTML;
 			});
 		}
-		editTask();
+		addEditingTask();
 	}
-
-	// событие добавления новой задачи
+	// new task
 	addTaskBtn.addEventListener('click', function () {
-		// проверка, что поле для добавления задачи не пустое
-		if (addTaskInput.value !== '') {
-			pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '" disabled><button class="pomodoro__taskedit"></button><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
-			// сброс поля добавления новой задачи
-			addTaskInput.value = '';
-			//обновление localStorage
-			localStorage.todolist = pomodoroTasks.innerHTML;
-			// на кнопку удаления на каждой задаче вешаем событие обновлять localStorage
-			let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
-			for (let i = 0; i < pomodoroTaskdelete.length; i++) {
-				pomodoroTaskdelete[i].addEventListener('click', function () {
-					localStorage.todolist = pomodoroTasks.innerHTML;
-					editTask();
-				});
-			}
-			editTask();
-
+		addTask(addTaskInput, pomodoroTasks)
+	});
+	addTaskInput.addEventListener('keypress', function (e) {
+		if (e.keyCode === 13) {
+			addTask(addTaskInput, pomodoroTasks)
 		}
 	});
 
-	// вывод времени (нужно ли подставить ноль перед значением)
+	// FUNCTIONS
+
+	// rule for output time
 	function showTime(value, elem) {
 		if (value < 10) {
 			elem.innerHTML = '0' + value;
@@ -350,12 +305,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// получение начального времени таймера
+	// initial time depending on the mode
     function getTimeFromMode(mode) {
-        if (hourReserv > 0 || minuteReserv > 0 || secondReserv > 0) {
-				hour = hourReserv;
-				minute = minuteReserv;
-				second = secondReserv;
+        if (standbyHour > 0 || standbyMinute > 0 || standbySecond > 0) {
+				hour = standbyHour;
+				minute = standbyMinute;
+				second = standbySecond;
 			} else if (mode === 1) {
 				hour = pomodoroHourValue;
 				minute = pomodoroMinuteValue;
@@ -372,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			return [hour, minute, second];
     }
 
-	// разрешение/запрет выбора режима
+	// set/reset disabled for mode buttons
 	function setDisabledModeButtons(check) {
 		if (check) {
 			pomodoro.disabled = true;
@@ -385,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// разрешение/запрет нажатия кнопок управления таймером
+	// set/reset disabled for timer buttons
 	function setDisabledTimerButtons(checkRun, checkPause, checkReset) {
 		if (checkRun) {
 			run.disabled = true;
@@ -404,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// выбор текущего режима в css
+	// current mode (css-style)
 	function setCurrentMode(mode) {
 		if (mode === 1) {
 			pomodoro.classList.add('current');
@@ -421,21 +376,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// записать данные в резерв
-	function setTimeReserv(hour, minute, second) {
-		hourReserv = hour;
-		minuteReserv = minute;
-		secondReserv = second;
+	// write standby time
+	function setStandbyTime(hour, minute, second) {
+		standbyHour = hour;
+		standbyMinute = minute;
+		standbySecond = second;
 	}
 
-	// сбросить резерв
-	function resetTimeReserv() {
-		hourReserv = 0;
-		minuteReserv = 0;
-		secondReserv = 0;
+	// reset standby time
+	function resetStandbyTime() {
+		standbyHour = 0;
+		standbyMinute = 0;
+		standbySecond = 0;
 	}
 
-	// установить/убрать disabled в настройках
+	function addTask(addTaskInput, pomodoroTasks) {
+		if (addTaskInput.value !== '') {
+			pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '" disabled><button class="pomodoro__taskedit"></button><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
+			addTaskInput.value = '';
+			// write in localStorage
+			localStorage.todolist = pomodoroTasks.innerHTML;
+			// deleting for every task
+			let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
+			for (let i = 0; i < pomodoroTaskdelete.length; i++) {
+				pomodoroTaskdelete[i].addEventListener('click', function () {
+					localStorage.todolist = pomodoroTasks.innerHTML;
+					addEditingTask();
+				});
+			}
+			addEditingTask();
+		}
+		else {
+			showChangingSettingsInput(addTaskInput);
+		}
+	}
+	
+	// set/reset disabled for settings
 	function setDisabledSettings(check) {
 		settingsSave.disabled = check;
 		settingsReset.disabled = check;
@@ -450,12 +426,46 @@ document.addEventListener('DOMContentLoaded', function () {
 		longBreakSecond.disabled = check;
 	}
 
-	// при сохранении/сбросе настроек показ пользователю изменение полей
+	// changing inputs (css-style)
 	function showChangingSettingsInput(elem) {
-		elem.style.outline = '1px solid rgba(255, 255, 255, 0.6)';
-			setTimeout(function () {
-				elem.style.outline = '1px solid transparent';
-			}, 500);
+		elem.style.animation = 'inputAnimation 1s linear';
+		setTimeout(function () {
+			elem.style.animation = 'none';
+		}, 2000);
+	}
+
+	// editing for every button and write new data in localStorage
+	function addEditingTask() {
+		let pomodoroTaskedit = document.getElementsByClassName('pomodoro__taskedit');
+		for (let i = 0; i < pomodoroTaskedit.length; i++) {
+			pomodoroTaskedit[i].addEventListener('click', function () {
+				modalEditTask.classList.add('active');
+				console.log(editTaskInput.value);
+				editTaskInput.value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;
+				console.log(editTaskInput.value);
+				editTaskSave.addEventListener('click', function () {
+					modalEditTask.classList.remove('active');
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value = editTaskInput.value;
+					// save in localStorage
+					let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;
+					pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
+					localStorage.todolist = pomodoroTasks.innerHTML;
+				})
+				editTaskInput.addEventListener('keypress', function (e) {
+					if (e.keyCode === 13) {
+						modalEditTask.classList.remove('active');
+						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value = editTaskInput.value;
+						// save in localStorage
+						let value = pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].value;
+						pomodoroTaskedit[i].parentElement.getElementsByTagName("input")[0].outerHTML = '<input type="text" value="' + value + '" disabled>';
+						localStorage.todolist = pomodoroTasks.innerHTML;
+					}
+				})
+				editTaskClose.addEventListener('click', function () {
+					modalEditTask.classList.remove('active');
+				})
+			});
+		}
 	}
 
 });
