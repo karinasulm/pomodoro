@@ -45,6 +45,7 @@ body {
   color: #fff;
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
+  transition: background-color 0.4s linear;
 }
 .wrapper {
   width: 100%;
@@ -58,6 +59,7 @@ body {
 .header__inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .header__logo {
   color: #fff;
@@ -76,7 +78,6 @@ body {
   outline: none;
   padding: 10px 20px;
   margin: 0 20px 0 0;
-  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -93,7 +94,6 @@ body {
   top: 0;
   left: -30px;
   transform: skew(-30deg);
-  transition: left 0.4s ease;
 }
 .header__link:hover::after {
   animation: moveLightOnBtn 0.4s ease;
@@ -207,7 +207,6 @@ body {
   margin: 0 30px 0 0;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.2s ease;
 }
 @media (max-width: 600px) {
   .pomodoro__btn {
@@ -227,7 +226,6 @@ body {
   top: 0;
   left: -30px;
   transform: skew(-30deg);
-  transition: left 0.4s ease;
 }
 .pomodoro__btn:hover::after {
   animation: moveLightOnBtn 0.4s ease;
@@ -378,12 +376,9 @@ body {
 }
 .pomodoro__task .pomodoro__taskedit {
   right: 40px;
-  background-image: url(../img/save-regular.svg);
+  background-image: url(../img/pencil-alt-solid.svg);
   background-size: contain;
   background-repeat: no-repeat;
-}
-.pomodoro__task input:disabled + .pomodoro__taskedit {
-  background-image: url(../img/pencil-alt-solid.svg);
 }
 .modal {
   display: none;
@@ -401,14 +396,14 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(25, 25, 25, 0.8);
+  background-color: rgba(25, 25, 25, 0.9);
   padding: 0 20px;
   z-index: 1000;
 }
 .modal__dialog {
   position: relative;
   width: 500px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
   padding: 40px;
 }
@@ -437,7 +432,6 @@ body {
   background-color: #fff;
   right: 0;
   top: 0;
-  transition: all 0.3s ease;
 }
 .modal__close::before {
   transform: rotate(45deg);
@@ -470,10 +464,10 @@ body {
   border: none;
   background-color: rgba(255, 255, 255, 0.3);
   color: #fff;
-  outline: none;
+  outline: 1px solid transparent;
   padding: 10px;
   margin: 0 5px 0 0;
-  transition: all 0.4s ease;
+  transition: outline-color 0.4s linear;
 }
 .settings__item input:last-child {
   margin: 0;
@@ -501,7 +495,7 @@ body {
   margin: 0 20px 0 0;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: transform 0.2s linear;
 }
 .settings__btn:last-child {
   margin: 0;
@@ -515,7 +509,6 @@ body {
   top: 0;
   left: -30px;
   transform: skew(-30deg);
-  transition: left 0.4s ease;
 }
 .settings__btn:hover::after {
   animation: moveLightOnBtn 0.4s ease;
@@ -530,11 +523,93 @@ body {
 .settings__btn:disabled:hover::after {
   animation: none;
 }
+.edit-task {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.edit-task__input {
+  width: 100%;
+  color: #191919;
+  font-size: 18px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  outline: 2px solid transparent;
+  padding: 10px;
+  margin: 0 0 30px 0;
+  transition: outline-color 0.2s linear;
+}
+.edit-task__input:last-child {
+  margin: 0;
+}
+.edit-task__input:disabled {
+  color: #b3b3b3;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.edit-task__input:focus {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+}
+.edit-task__buttons {
+  display: flex;
+}
+.edit-task__btn {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border: none;
+  outline: none;
+  line-height: 1;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin: 0 20px 0 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+.edit-task__btn:last-child {
+  margin: 0;
+}
+.edit-task__btn::after {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: -30px;
+  transform: skew(-30deg);
+}
+.edit-task__btn:hover::after {
+  animation: moveLightOnBtn 0.4s ease;
+}
+.edit-task__btn:active {
+  transform: scale(0.95);
+}
+.edit-task__btn:disabled {
+  color: #b3b3b3;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.edit-task__btn:disabled:hover::after {
+  animation: none;
+}
 @keyframes moveLightOnBtn {
   from {
     left: -20px;
   }
   to {
     left: calc(100% + 30px);
+  }
+}
+@keyframes inputAnimation {
+  0% {
+    outline: 1px solid transparent;
+  }
+  30%,
+  60% {
+    outline: 1px solid rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    outline: 1px solid transparent;
   }
 }

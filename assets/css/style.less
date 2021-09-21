@@ -11,6 +11,7 @@ body {
     color: @secondary-color;
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
+    transition: background-color .4s linear;
 }
 .wrapper {
     width: 100%;
@@ -24,6 +25,7 @@ body {
 .header__inner {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .header__logo {
     color: @secondary-color;
@@ -42,7 +44,6 @@ body {
     outline: none;
     padding: 10px 20px;
     margin: 0 20px 0 0;
-    transition: all .2s ease;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -58,7 +59,6 @@ body {
         top: 0;
         left: -30px;
         transform: skew(-30deg);
-        transition: left .4s ease;
     }
     &:hover::after {
         animation: moveLightOnBtn .4s ease;
@@ -166,7 +166,6 @@ body {
 	margin: 0 30px 0 0;
 	cursor: pointer;
     overflow: hidden;
-    transition: all .2s ease;
     @media (max-width: 600px) {
         width: 200px;
         margin: 0 0 20px 0;
@@ -183,7 +182,6 @@ body {
         top: 0;
         left: -30px;
         transform: skew(-30deg);
-        transition: left .4s ease;
     }
     &:hover::after {
         animation: moveLightOnBtn .4s ease;
@@ -331,12 +329,9 @@ body {
     }
     .pomodoro__taskedit {
         right: 40px;
-        background-image: url(../img/save-regular.svg);
+        background-image: url(../img/pencil-alt-solid.svg);
         background-size: contain;
         background-repeat: no-repeat;
-    }
-    input:disabled + .pomodoro__taskedit {
-        background-image: url(../img/pencil-alt-solid.svg);
     }
 }
 
@@ -356,14 +351,14 @@ body {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: fadeout(darken(@secondary-color, 90%), 20%);
+	background-color: fadeout(darken(@secondary-color, 90%), 10%);
 	padding: 0 20px;
 	z-index: 1000;
 }
 .modal__dialog {
 	position: relative;
 	width: 500px;
-	background-color: fadeout(@secondary-color, 80%);
+	background-color: fadeout(@secondary-color, 90%);
     color: @secondary-color;
 	padding: 40px;
 }
@@ -390,7 +385,6 @@ body {
 		background-color: @secondary-color;
 		right: 0;
 		top: 0;
-		transition: all .3s ease;
 	}
 	&::before {
 		transform: rotate(45deg);
@@ -422,10 +416,10 @@ body {
         border: none;
         background-color: fadeout(@secondary-color, 70%);
         color: @secondary-color;
-        outline: none;
+        outline: 1px solid transparent;
         padding: 10px;
         margin: 0 5px 0 0;
-        transition: all .4s ease;
+        transition: outline-color .4s linear;
         &:last-child {
             margin: 0;
         }
@@ -454,7 +448,7 @@ body {
     margin: 0 20px 0 0;
 	cursor: pointer;
     overflow: hidden;
-    transition: all .2s ease;
+    transition: transform .2s linear;
     &:last-child {
         margin: 0;
     }
@@ -467,7 +461,77 @@ body {
         top: 0;
         left: -30px;
         transform: skew(-30deg);
-        transition: left .4s ease;
+    }
+    &:hover::after {
+        animation: moveLightOnBtn .4s ease;
+    }
+	&:active {
+		transform: scale(0.95);
+	}
+    &:disabled {
+        color: darken(@secondary-color, 30%);
+        background-color: fadeout(@secondary-color, 90%);
+    }
+    &:disabled:hover::after {
+        animation: none;
+    }
+
+}
+.edit-task {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.edit-task__input {
+    width: 100%;
+    color: darken(@secondary-color, 90%);
+    font-size: 18px;
+    border: none;
+    background-color: fadeout(@secondary-color, 70%);
+    color: @secondary-color;
+    outline: 2px solid transparent;
+    padding: 10px;
+    margin: 0 0 30px 0;
+    transition: outline-color .2s linear;
+    &:last-child {
+        margin: 0;
+    }
+    &:disabled {
+        color: darken(@secondary-color, 30%);
+        background-color: fadeout(@secondary-color, 90%);
+    }
+    &:focus {
+        outline: 1px solid fadeout(@secondary-color, 40%);
+    }
+}
+.edit-task__buttons {
+    display: flex;
+}
+.edit-task__btn {
+    position: relative;
+	background-color: fadeout(@secondary-color, 70%);
+	color: @secondary-color;
+	border: none;
+	outline: none;
+	line-height: 1;
+	text-decoration: none;
+    padding: 10px 30px;
+    margin: 0 20px 0 0;
+	cursor: pointer;
+    overflow: hidden;
+    &:last-child {
+        margin: 0;
+    }
+    &::after {
+        position: absolute;
+        content: '';
+        width: 10px;
+        height: 100%;
+        background-color: fadeout(@secondary-color, 80%);
+        top: 0;
+        left: -30px;
+        transform: skew(-30deg);
     }
     &:hover::after {
         animation: moveLightOnBtn .4s ease;
@@ -482,7 +546,6 @@ body {
     &:disabled:hover::after {
         animation: none;
     }
-
 }
 
 @keyframes moveLightOnBtn {
@@ -491,5 +554,16 @@ body {
     }
     to {
         left: calc(100% + 30px);
+    }
+}
+@keyframes inputAnimation {
+    0% {
+        outline: 1px solid transparent;
+    }
+    30%, 60% {
+        outline: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        outline: 1px solid transparent;
     }
 }

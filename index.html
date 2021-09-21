@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/img/icons8-tomato-60.png" type="image/x-icon">
     <title>Pomodoro</title>
 </head>
 <body>
 <header class="header">
     <div class="wrapper">
         <div class="header__inner">
-            <a href="" class="header__logo">pomodoro</a>
+            <a href="index.html" class="header__logo">pomodoro</a>
             <nav class="header__nav">
                 <button class="header__link" id="settingsOpen">Settings</button>
                 <button class="header__link" id="aboutOpen">About</button>
@@ -29,7 +30,7 @@
                     <button class="pomodoro__mode" id="shortBreak">Short Break</button>
                     <button class="pomodoro__mode" id="longBreak">Long Break</button>
                 </div>
-                <div class="pomodoro__body">
+                <div class="pomodoro__body" id="pomodoroBody">
                     <span id="timeHour">00</span>
                     <span>:</span>
                     <span id="timeMinute">25</span>
@@ -58,42 +59,54 @@
         <div class="modal__dialog">
             <button class="modal__close" id="settingsClose"></button>
             <h2 class="modal__title">Settings</h2>
-            <div class="settings">
+            <div class="settings" id="settings">
                 <div class="settings__item">
                     <label>Pomodoro</label>
                     <div class="settings__time">
-                        <input id="pomodoroHour" type="number" value="0" min='0' max='8'>
-                        <input id="pomodoroMinute" type="number" value="25" min='0' max='59'>
-                        <input id="pomodoroSecond" type="number" value="0" min='0' max='59'>
+                        <input id="pomodoroHour" type="number" value="0" min="0" max="8">
+                        <input id="pomodoroMinute" type="number" value="25" min="0" max="59">
+                        <input id="pomodoroSecond" type="number" value="0" min="0" max="59">
                     </div>
                 </div>
                 <div class="settings__item">
                     <label>Short Break</label>
                     <div class="settings__time">
-                        <input id="shortBreakHour" type="number" value="0" min='0' max='8'>
-                        <input id="shortBreakMinute" type="number" value="5" min='0' max='59'>
-                        <input id="shortBreakSecond" type="number" value="0" min='0' max='59'>
+                        <input id="shortBreakHour" type="number" value="0" min="0" max="8">
+                        <input id="shortBreakMinute" type="number" value="5" min="0" max="59">
+                        <input id="shortBreakSecond" type="number" value="0" min="0" max="59">
                     </div>
                 </div>
                 <div class="settings__item">
                     <label>Long Break</label>
                     <div class="settings__time">
-                        <input id="longBreakHour" type="number" value="0" min='0' max='8'>
-                        <input id="longBreakMinute" type="number" value="15" min='0' max='59'>
-                        <input id="longBreakSecond" type="number" value="0" min='0' max='59'>
+                        <input id="longBreakHour" type="number" value="0" min="0" max="8">
+                        <input id="longBreakMinute" type="number" value="15" min="0" max="59">
+                        <input id="longBreakSecond" type="number" value="0" min="0" max="59">
                     </div>
                 </div>
                 <div class="settings__buttons">
                     <button class="settings__btn" id="settingsSave">Save</button>
                     <button class="settings__btn" id="settingsReset">Reset</button>
                 </div>
-            </в>
+            </div>
         </div>
     </div>
 </div>
-<audio id="audio">
-    <source src="assets/audio/sound.mp3"></source>
-</audio>
+<div class="modal modal--edit-task" id="modalEditTask">
+    <div class="modal__bg">
+        <div class="modal__dialog">
+            <h2 class="modal__title">Edit task</h2>
+            <div class="edit-task">
+                <input class="edit-task__input" id="editTaskInput" type="text" value="">
+                <div class="edit-task__buttons">
+                    <button class="edit-task__btn" id="editTaskSave">Save</button>
+                    <button class="edit-task__btn" id="editTaskClose">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<audio id="audio"><source src="assets/audio/sound.mp3"></source></audio>
 <script src="assets/js/script.js"></script>
 </body>
 </html>
