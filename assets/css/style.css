@@ -54,7 +54,7 @@ body {
   padding: 0 20px;
 }
 .header {
-  padding: 20px 0;
+  padding: 20px 0 10px 0;
 }
 .header__inner {
   display: flex;
@@ -102,7 +102,7 @@ body {
   transform: scale(0.95);
 }
 .section {
-  padding: 40px 0;
+  padding: 20px 0;
 }
 .pomodoro {
   display: flex;
@@ -645,6 +645,29 @@ body {
 }
 .about__list li {
   padding: 0 0 15px 0;
+}
+.footer {
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0;
+}
+.footer p {
+  margin: 0 0 5px 0;
+}
+.footer__social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer__social a {
+  margin: 0 10px 0 0;
+}
+.footer__social a:last-child {
+  margin: 0;
+}
+.footer__social img {
+  width: 20px;
+  height: 20px;
 }
 @keyframes moveLightOnBtn {
   from {
