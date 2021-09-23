@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			addEditingTask();
 		}
 		else {
-			showEmptySettingsInput(addTaskInput);
+			showChangingSettingsInput(addTaskInput);
 		}
 	}
 	
@@ -527,15 +527,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// changing inputs (css-style)
 	function showChangingSettingsInput(elem) {
-		elem.style.animation = 'inputAnimationBlack 2s linear';
-		setTimeout(function () {
-			elem.style.animation = 'none';
-		}, 2100);
-	}
-
-	// empty inputs (css-style)
-	function showEmptySettingsInput(elem) {
-		elem.style.animation = 'inputAnimationWhite 2s linear';
+		elem.style.animation = 'inputAnimation 2s linear';
 		setTimeout(function () {
 			elem.style.animation = 'none';
 		}, 2100);
