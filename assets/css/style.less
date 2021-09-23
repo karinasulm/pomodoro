@@ -7,12 +7,18 @@
     margin: 0;
     padding: 0;
 }
+html {
+    height: 100%;
+}
 body {
     background-color: @bg-color;
     color: @primary-color;
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
     transition: background-color .4s linear;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .wrapper {
     width: 100%;
@@ -21,6 +27,7 @@ body {
     padding: 0 20px;
 }
 .header {
+    flex: 0 0 auto;
     padding: 20px 0 10px 0;
 }
 .header__inner {
@@ -69,6 +76,7 @@ body {
 	}
 }
 .section {
+    flex: 1 0 auto;
     padding: 20px 0;
 }
 .pomodoro {
@@ -601,9 +609,13 @@ body {
     }
 }
 .footer {
+    flex: 0 0 auto;
     font-size: 14px;
     text-align: center;
-    padding: 20px 0;
+}
+.footer__inner {
+    padding: 10px 0;
+    border-top: 1px solid fadeout(@primary-color, 60%);
     p {
         margin: 0 0 5px 0;
     }

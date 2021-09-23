@@ -40,12 +40,18 @@
   margin: 0;
   padding: 0;
 }
+html {
+  height: 100%;
+}
 body {
   background-color: #e76f51;
   color: #ffffff;
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
   transition: background-color 0.4s linear;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .wrapper {
   width: 100%;
@@ -54,6 +60,7 @@ body {
   padding: 0 20px;
 }
 .header {
+  flex: 0 0 auto;
   padding: 20px 0 10px 0;
 }
 .header__inner {
@@ -102,6 +109,7 @@ body {
   transform: scale(0.95);
 }
 .section {
+  flex: 1 0 auto;
   padding: 20px 0;
 }
 .pomodoro {
@@ -647,11 +655,15 @@ body {
   padding: 0 0 15px 0;
 }
 .footer {
+  flex: 0 0 auto;
   font-size: 14px;
   text-align: center;
-  padding: 20px 0;
 }
-.footer p {
+.footer__inner {
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+.footer__inner p {
   margin: 0 0 5px 0;
 }
 .footer__social {
