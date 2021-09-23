@@ -46,6 +46,7 @@
                 </div>
             </div>
             <div class="pomodoro__todolist">
+                <button class="pomodoro__delete-tasks" id="deleteAllTasks">Delete all tasks</button>
                 <h3 class="pomodoro__title">To Do List</h3>
                 <div class="pomodoro__addtask">
                     <input id="addTaskInput" type="text" value="" placeholder="Add a task">
@@ -63,33 +64,87 @@
             <h2 class="modal__title">Settings</h2>
             <div class="settings" id="settings">
                 <div class="settings__item">
-                    <label>Pomodoro</label>
+                    <label class="settings__name">Pomodoro</label>
                     <div class="settings__time">
-                        <input id="pomodoroHour" type="number" value="0" min="0" max="8">
-                        <input id="pomodoroMinute" type="number" value="25" min="0" max="59">
-                        <input id="pomodoroSecond" type="number" value="0" min="0" max="59">
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input settings__input--hour" id="pomodoroHour" type="number" value="0" min="0" max="8">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input" id="pomodoroMinute" type="number" value="25" min="0" max="59">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input" id="pomodoroSecond" type="number" value="0" min="0" max="59">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        
                     </div>
                 </div>
                 <div class="settings__item">
-                    <label>Short Break</label>
+                    <label class="settings__name">Short Break</label>
                     <div class="settings__time">
-                        <input id="shortBreakHour" type="number" value="0" min="0" max="8">
-                        <input id="shortBreakMinute" type="number" value="5" min="0" max="59">
-                        <input id="shortBreakSecond" type="number" value="0" min="0" max="59">
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input settings__input--hour" id="shortBreakHour" type="number" value="0" min="0" max="8">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input" id="shortBreakMinute" type="number" value="5" min="0" max="59">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input" id="shortBreakSecond" type="number" value="0" min="0" max="59">
+                            <div class="settings__arrow-right"></div>
+                        </label>
                     </div>
                 </div>
                 <div class="settings__item">
-                    <label>Long Break</label>
+                    <label class="settings__name">Long Break</label>
                     <div class="settings__time">
-                        <input id="longBreakHour" type="number" value="0" min="0" max="8">
-                        <input id="longBreakMinute" type="number" value="15" min="0" max="59">
-                        <input id="longBreakSecond" type="number" value="0" min="0" max="59">
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input settings__input--hour" id="longBreakHour" type="number" value="0" min="0" max="8">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input" id="longBreakMinute" type="number" value="15" min="0" max="59">
+                            <div class="settings__arrow-right"></div>
+                        </label>
+                        <label class="settings__arrows">
+                            <div class="settings__arrow-left"></div>
+                            <input class="modal__input settings__input" id="longBreakSecond" type="number" value="0" min="0" max="59">
+                            <div class="settings__arrow-right"></div>
+                        </label>
                     </div>
                 </div>
-                <div class="settings__buttons">
-                    <button class="settings__btn" id="settingsSave">Save</button>
-                    <button class="settings__btn" id="settingsReset">Reset</button>
+                <div class="modal__buttons settings__buttons">
+                    <button class="modal__btn settings__btn" id="settingsSave">Save</button>
+                    <button class="modal__btn settings__btn" id="settingsReset">Reset</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal--about" id="modalAbout">
+    <div class="modal__bg">
+        <div class="modal__dialog">
+            <h2 class="modal__title">How it works?</h2>
+            <button class="modal__close" id="aboutClose"></button>
+            <div class="about" id="about">
+                <ul class="about__list">
+                    <li>At the beginning of the day, write down your tasks</li>
+                    <li>Work on tasks for a Pomodoro (25 minutes) without distractions (calls, messages, gossip, etc)</li>
+                    <li>Take a 5-minute short-break, then continue with another Pomodoro</li>
+                    <li>Every 4 Pomodoros, take a 15-minute long-break</li>
+                    <li>Deal with distractions: If it is non urgent (gossips, texts, distracting thoughts, etc.), note it down to get to it later in break time and come back to the thing you're working on immediately</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -99,10 +154,10 @@
         <div class="modal__dialog">
             <h2 class="modal__title">Edit task</h2>
             <div class="edit-task">
-                <input class="edit-task__input" id="editTaskInput" type="text" value="">
-                <div class="edit-task__buttons">
-                    <button class="edit-task__btn" id="editTaskSave">Save</button>
-                    <button class="edit-task__btn" id="editTaskClose">Cancel</button>
+                <input class="modal__input edit-task__input" id="editTaskInput" type="text" value="">
+                <div class="modal__buttons edit-task__buttons">
+                    <button class="modal__btn edit-task__btn" id="editTaskSave">Save</button>
+                    <button class="modal__btn edit-task__btn" id="editTaskClose">Cancel</button>
                 </div>
             </div>
         </div>

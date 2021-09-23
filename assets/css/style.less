@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
-@primary-color: #e76f51;
-@secondary-color: #fff;
+@bg-color: #e76f51;
+@primary-color: #ffffff;
+@secondary-color: darken(@primary-color, 75%);
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 body {
-    background-color: @primary-color;
-    color: @secondary-color;
+    background-color: @bg-color;
+    color: @primary-color;
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
     transition: background-color .4s linear;
@@ -28,7 +29,7 @@ body {
     align-items: center;
 }
 .header__logo {
-    color: @secondary-color;
+    color: @primary-color;
     font-size: 22px;
     font-weight: 700;
     text-decoration: none;
@@ -37,8 +38,8 @@ body {
     display: flex;
 }
 .header__link {
-    background-color: fadeout(@secondary-color, 90%);
-    color: @secondary-color;
+    background-color: fadeout(@primary-color, 90%);
+    color: @primary-color;
     text-decoration: none;
     border: none;
     outline: none;
@@ -55,7 +56,7 @@ body {
         content: '';
         width: 10px;
         height: 100%;
-        background-color: fadeout(@secondary-color, 80%);
+        background-color: fadeout(@primary-color, 80%);
         top: 0;
         left: -30px;
         transform: skew(-30deg);
@@ -80,7 +81,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-color: fadeout(@secondary-color, 90%);
+    background-color: fadeout(@primary-color, 90%);
     padding: 40px;
     margin: 0 0 40px 0;
 
@@ -93,7 +94,7 @@ body {
 .pomodoro__mode {
 	position: relative;
     background-color: transparent;
-	color: @secondary-color;
+	color: @primary-color;
 	border: none;
 	outline: none;
 	line-height: 1;
@@ -109,19 +110,19 @@ body {
         margin: 0;
     }
     &:hover {
-        color: darken(@secondary-color, 5%);
+        color: darken(@primary-color, 5%);
     }
 	&:active {
-		color: darken(@secondary-color, 10%);
+		color: darken(@primary-color, 10%);
 	}
     &.current {
         font-weight: 700;
     }
     &:disabled {
-        color: fadeout(@secondary-color, 30%);
+        color: fadeout(@primary-color, 30%);
     }
     &.current:disabled {
-        color: @secondary-color;
+        color: @primary-color;
     }
 }
 .pomodoro__body {
@@ -130,12 +131,12 @@ body {
 	align-items: center;
 	width: 320px;
 	height: 320px;
-	border: 10px solid fadeout(@secondary-color, 30%);
+	border: 10px solid fadeout(@primary-color, 30%);
 	border-radius: 50%;
     margin: 40px 0;
 	span {
 		font-size: 60px;
-		color: @secondary-color;
+		color: @primary-color;
         @media (max-width: 800px) {
             font-size: 40px;
         }
@@ -143,7 +144,7 @@ body {
     @media (max-width: 600px) {
         width: 200px;
         height: 200px;
-        border: 5px solid fadeout(@secondary-color, 30%);
+        border: 5px solid fadeout(@primary-color, 30%);
     }
 }
 .pomodoro__buttons {
@@ -156,8 +157,8 @@ body {
 }
 .pomodoro__btn {
 	position: relative;
-	background-color: fadeout(@secondary-color, 80%);
-	color: @secondary-color;
+	background-color: fadeout(@primary-color, 80%);
+	color: @primary-color;
 	border: none;
 	outline: none;
 	line-height: 1;
@@ -178,7 +179,7 @@ body {
         content: '';
         width: 10px;
         height: 100%;
-        background-color: fadeout(@secondary-color, 80%);
+        background-color: fadeout(@primary-color, 80%);
         top: 0;
         left: -30px;
         transform: skew(-30deg);
@@ -190,25 +191,60 @@ body {
 		transform: scale(0.95);
 	}
     &:disabled {
-        background-color: fadeout(@secondary-color, 95%);
+        background-color: fadeout(@primary-color, 95%);
     }
     &:disabled:hover::after {
         animation: none;
     }
+    &:disabled:active::after {
+        transform: none;
+    }
 }
-
 .pomodoro__todolist {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+    position: relative;
+}
+.pomodoro__delete-tasks {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background-color: fadeout(@primary-color, 90%);
+    color: @primary-color;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    overflow: hidden;
+    cursor: pointer;
+    &:last-child {
+        margin: 0;
+    }
+    &::after {
+        position: absolute;
+        content: '';
+        width: 10px;
+        height: 100%;
+        background-color: fadeout(@primary-color, 80%);
+        top: 0;
+        left: -30px;
+        transform: skew(-30deg);
+    }
+    &:hover::after {
+        animation: moveLightOnBtn .4s ease;
+    }
+	&:active {
+		transform: scale(0.95);
+	}
 }
 .pomodoro__title {
     width: 100%;
     font-size: 24px;
     text-align: center;
-    border-bottom: 1px solid fadeout(@secondary-color, 60%);
+    border-bottom: 1px solid fadeout(@primary-color, 60%);
     padding: 0 0 10px 0;
     margin: 0 0 20px 0;
 }
@@ -217,14 +253,14 @@ body {
     position: relative;
     input {
         width: 100%;
-        background-color: fadeout(@secondary-color, 80%);
-        color: @secondary-color;
+        background-color: fadeout(@primary-color, 80%);
+        color: @primary-color;
         border: none;
         outline: none;
         padding: 10px;
     }
     input::placeholder {
-        color: fadeout(@secondary-color, 50%);
+        color: fadeout(@primary-color, 50%);
     }
     button {
         position: absolute;
@@ -245,7 +281,7 @@ body {
         height: 20px;
         top: 0;
         right: 50%;
-        background-color: @secondary-color;
+        background-color: @primary-color;
         transform: translateX(50%);
     }
     button::after {
@@ -255,14 +291,14 @@ body {
         height: 2px;
         top: 50%;
         right: 0;
-        background-color: @secondary-color;
+        background-color: @primary-color;
         transform: translateY(-50%);
     }
     button:hover::before, button:hover::after {
-        background-color: fadeout(@secondary-color, 20%);
+        background-color: fadeout(@primary-color, 20%);
     }
     button:active::before, button:active::after {
-        background-color: fadeout(@secondary-color, 40%);
+        background-color: fadeout(@primary-color, 40%);
     }
 }
 .pomodoro__tasks {
@@ -272,19 +308,20 @@ body {
     width: 100%;
     position: relative;
     margin: 10px 0 0 0;
+    position: relative;
     input {
         width: 100%;
-        background-color: fadeout(@secondary-color, 80%);
-        color: @secondary-color;
+        background-color: fadeout(@primary-color, 80%);
+        color: @primary-color;
         border: none;
         outline: none;
-        padding: 10px;
+        padding: 10px 10px 10px 40px;
     }
     input::placeholder {
-        color: fadeout(@secondary-color, 50%);
+        color: fadeout(@primary-color, 50%);
     }
     input:focus {
-        outline: 2px solid fadeout(@secondary-color, 50%);
+        outline: 2px solid fadeout(@primary-color, 50%);
     }
     button {
         position: absolute;
@@ -308,7 +345,7 @@ body {
         height: 20px;
         top: 0;
         right: 50%;
-        background-color: @secondary-color;
+        background-color: @primary-color;
         transform: translateX(50%) rotate(45deg);
     }
     .pomodoro__taskdelete::after {
@@ -318,14 +355,14 @@ body {
         height: 2px;
         top: 50%;
         right: 0;
-        background-color: @secondary-color;
+        background-color: @primary-color;
         transform: translateY(-50%) rotate(45deg);
     }
     .pomodoro__taskdelete:hover::before, .pomodoro__taskdelete:hover::after {
-        background-color: fadeout(@secondary-color, 20%);
+        background-color: fadeout(@primary-color, 20%);
     }
     .pomodoro__taskdelete:active::before, .pomodoro__taskdelete:active::after {
-        background-color: fadeout(@secondary-color, 40%);
+        background-color: fadeout(@primary-color, 40%);
     }
     .pomodoro__taskedit {
         right: 40px;
@@ -334,10 +371,34 @@ body {
         background-repeat: no-repeat;
     }
 }
-
+.pomodoro__task-check {
+    display: block;
+    background-color: fadeout(@primary-color, 80%);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    cursor: pointer;
+    &::after {
+        content: '';
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        left: 10%;
+        top: 10%;
+        background-image: url(../img/check-solid.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0;
+    }
+}
+.pomodoro__task-check.active::after {
+    opacity: 1;
+}
 .modal {
     display: none;
-	color: darken(@secondary-color, 50%);
+	color: darken(@primary-color, 50%);
 	&.active {
         display: block;
 	}
@@ -351,21 +412,21 @@ body {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: fadeout(darken(@secondary-color, 90%), 10%);
+	background-color: fadeout(@secondary-color, 10%);
 	padding: 0 20px;
 	z-index: 1000;
 }
 .modal__dialog {
 	position: relative;
 	width: 500px;
-	background-color: fadeout(@secondary-color, 90%);
-    color: @secondary-color;
-	padding: 40px;
+	background-color: fadeout(@primary-color, 90%);
+    color: @primary-color;
+	padding: 40px 20px;
 }
 .modal__title {
     font-size: 24px;
     text-align: center;
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
 }
 .modal__close {
 	position: absolute;
@@ -382,7 +443,7 @@ body {
 		position: absolute;
 		width: 20px;
 		height: 5px;
-		background-color: @secondary-color;
+		background-color: @primary-color;
 		right: 0;
 		top: 0;
 	}
@@ -392,59 +453,46 @@ body {
 	&::after {
 		transform: rotate(-45deg);
 	}
-	&:hover::before, &:hover::after {
-		background-color: darken(@secondary-color, 60%);
+	&:hover::before {
+        transform: rotate(45deg) scale(1.05);
+    }
+    &:hover::after {
+		transform: rotate(-45deg) scale(1.05);
 	}
 }
-.settings {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.settings__item {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 20px 0;
-    input {
-        width: 60px;
-        color: darken(@secondary-color, 90%);
-        font-size: 18px;
-        border: none;
-        background-color: fadeout(@secondary-color, 70%);
-        color: @secondary-color;
-        outline: 1px solid transparent;
-        padding: 10px;
-        margin: 0 5px 0 0;
-        transition: outline-color .4s linear;
-        &:last-child {
-            margin: 0;
-        }
-        &:disabled {
-            color: darken(@secondary-color, 30%);;
-            background-color: fadeout(@secondary-color, 90%);
-        }
+.modal__input {
+    width: 60px;
+    font-size: 18px;
+    border: none;
+    background-color: fadeout(@primary-color, 80%);
+    color: @primary-color;
+    outline: 1px solid transparent;
+    padding: 10px;
+    transition: outline-color .4s linear;
+    position: relative;
+    &:last-child {
+        margin: 0;
+    }
+    &:disabled {
+        color: darken(@primary-color, 35%);
     }
 }
-.settings__buttons {
+.modal__buttons {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px 0 0 0;
 }
-.settings__btn {
+.modal__btn {
     position: relative;
-	background-color: fadeout(@secondary-color, 70%);
-	color: @secondary-color;
+	background-color: fadeout(@primary-color, 80%);
+	color: @primary-color;
 	border: none;
 	outline: none;
 	line-height: 1;
 	text-decoration: none;
-    padding: 10px 30px;
+    padding: 10px 50px;
     margin: 0 20px 0 0;
 	cursor: pointer;
     overflow: hidden;
@@ -457,7 +505,7 @@ body {
         content: '';
         width: 10px;
         height: 100%;
-        background-color: fadeout(@secondary-color, 80%);
+        background-color: fadeout(@primary-color, 80%);
         top: 0;
         left: -30px;
         transform: skew(-30deg);
@@ -469,13 +517,72 @@ body {
 		transform: scale(0.95);
 	}
     &:disabled {
-        color: darken(@secondary-color, 30%);
-        background-color: fadeout(@secondary-color, 90%);
+        color: darken(@primary-color, 35%);
     }
     &:disabled:hover::after {
         animation: none;
     }
+    &:active:hover::after {
+        transform: none;
+    }
 
+}
+.settings {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.settings__item {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 20px 0;
+}
+.settings__name {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+.settings__arrows {
+    padding: 0 30px;
+    position: relative;
+}
+.settings__arrow-left, .settings__arrow-right {
+    position: absolute;
+    background-color: transparent;
+    width: 15px;
+    height: 15px;
+    border-top: 3px solid @primary-color;
+    border-left: 3px solid @primary-color;
+    top: 0;
+}
+.settings__arrow-left {
+    left: 15px;
+    transform: translateY(4px) rotate(-45deg);
+    cursor: pointer;
+}
+.settings__arrow-right {
+    right: 15px;
+    transform: translateY(4px) rotate(135deg);
+    cursor: pointer;
+}
+.settings__input {
+    width: 60px;
+    text-align: center;
+}
+.modal__input::-webkit-outer-spin-button,
+.modal__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.modal__input[type=number] {
+    -moz-appearance: textfield;
 }
 .edit-task {
     display: flex;
@@ -485,66 +592,12 @@ body {
 }
 .edit-task__input {
     width: 100%;
-    color: darken(@secondary-color, 90%);
-    font-size: 18px;
-    border: none;
-    background-color: fadeout(@secondary-color, 70%);
-    color: @secondary-color;
-    outline: 2px solid transparent;
-    padding: 10px;
-    margin: 0 0 30px 0;
-    transition: outline-color .2s linear;
-    &:last-child {
-        margin: 0;
-    }
-    &:disabled {
-        color: darken(@secondary-color, 30%);
-        background-color: fadeout(@secondary-color, 90%);
-    }
-    &:focus {
-        outline: 1px solid fadeout(@secondary-color, 40%);
-    }
 }
-.edit-task__buttons {
-    display: flex;
-}
-.edit-task__btn {
-    position: relative;
-	background-color: fadeout(@secondary-color, 70%);
-	color: @secondary-color;
-	border: none;
-	outline: none;
-	line-height: 1;
-	text-decoration: none;
-    padding: 10px 30px;
-    margin: 0 20px 0 0;
-	cursor: pointer;
-    overflow: hidden;
-    &:last-child {
-        margin: 0;
-    }
-    &::after {
-        position: absolute;
-        content: '';
-        width: 10px;
-        height: 100%;
-        background-color: fadeout(@secondary-color, 80%);
-        top: 0;
-        left: -30px;
-        transform: skew(-30deg);
-    }
-    &:hover::after {
-        animation: moveLightOnBtn .4s ease;
-    }
-	&:active {
-		transform: scale(0.95);
-	}
-    &:disabled {
-        color: darken(@secondary-color, 30%);;
-        background-color: fadeout(@secondary-color, 90%);
-    }
-    &:disabled:hover::after {
-        animation: none;
+.about__list {
+    list-style: decimal;
+    margin: 0 0 0 20px;
+    li {
+        padding: 0 0 15px 0;
     }
 }
 
@@ -556,14 +609,25 @@ body {
         left: calc(100% + 30px);
     }
 }
-@keyframes inputAnimation {
+@keyframes inputAnimationWhite {
     0% {
-        outline: 1px solid transparent;
+        outline: 2px solid transparent;
     }
     30%, 60% {
-        outline: 1px solid rgba(255, 255, 255, 0.6);
+        outline: 2px solid fadeout(@primary-color, 40%);
     }
     100% {
-        outline: 1px solid transparent;
+        outline: 2px solid transparent;
+    }
+}
+@keyframes inputAnimationBlack {
+    0% {
+        outline: 2px solid transparent;
+    }
+    30%, 60% {
+        outline: 2px solid fadeout(@primary-color, 40%);
+    }
+    100% {
+        outline: 2px solid transparent;
     }
 }

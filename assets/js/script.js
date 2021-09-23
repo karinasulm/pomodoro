@@ -66,6 +66,18 @@ document.addEventListener('DOMContentLoaded', function () {
 	const editTaskSave = document.getElementById('editTaskSave');
 	const editTaskClose = document.getElementById('editTaskClose');
 
+	//about
+	const aboutOpen = document.getElementById('aboutOpen');
+	const aboutClose = document.getElementById('aboutClose');
+	const modalAbout = document.getElementById('modalAbout');
+
+	// input number arrow
+	const ArrowLeft = document.getElementsByClassName('settings__arrow-left');
+	const ArrowRight = document.getElementsByClassName('settings__arrow-right');
+	const settingsInput = document.getElementsByClassName('settings__input');
+
+	const deleteAllTasks = document.getElementById('deleteAllTasks');
+
 	// make buttons "pause" and "end" inactive - default settings for start
 	setDisabledTimerButtons(false, true, true);
 
@@ -267,12 +279,75 @@ document.addEventListener('DOMContentLoaded', function () {
 		showTime(second, timeSecond);
 	});
 	
+	for (let i = 0; i < ArrowLeft.length; i++) {
+		ArrowLeft[i].addEventListener('click', function () {
+			let input = ArrowLeft[i].parentElement.getElementsByTagName('input')[0];
+			if (input.classList.contains('settings__input--hour')) {
+				if (Number(input.value) > 0 && Number(input.value) <= 4) {
+					input.value = Number(input.value) - 1;
+				}
+			}
+			else {
+				if (Number(input.value) > 0 && Number(input.value) <= 59) {
+					input.value = Number(input.value) - 1;
+				}
+			}
+		});
+	}
+	for (let i = 0; i < ArrowRight.length; i++) {
+		ArrowRight[i].addEventListener('click', function () {
+			let input = ArrowLeft[i].parentElement.getElementsByTagName('input')[0];
+			if (input.classList.contains('settings__input--hour')) {
+				if (Number(input.value) >= 0 && Number(input.value) < 4) {
+					input.value = Number(input.value) + 1;
+				}
+			}
+			else {
+				if (Number(input.value) >= 0 && Number(input.value) < 59) {
+					input.value = Number(input.value) + 1;
+				}
+			}
+			
+		});
+	}
+	for (let i = 0; i < settingsInput.length; i++) {
+		settingsInput[i].addEventListener('change', function () {
+			if (settingsInput[i].value < 0) {
+				settingsInput[i].value = 0;
+			}
+			else if (settingsInput[i].classList.contains('settings__input--hour')) {
+				if (settingsInput[i].value > 4) {
+					settingsInput[i].value = 4;
+				}
+			}
+			else {
+				if (settingsInput[i].value > 59) {
+					settingsInput[i].value = 59;
+				}
+			}
+		});
+	}
+
 	// to do list
 	if (localStorage.getItem('todolist') === null) {
 		localStorage.setItem('todolist', '');
 	} else {
 		pomodoroTasks.innerHTML = localStorage.todolist;
-		// на кнопку удаления на каждой задаче вешаем событие обновлять localStorage
+		// cross off tasks
+		let pomodoroTaskCheck = document.getElementsByClassName('pomodoro__task-check');
+		for (let i = 0; i < pomodoroTaskCheck.length; i++) {
+			pomodoroTaskCheck[i].addEventListener('click', function () {
+				pomodoroTaskCheck[i].classList.toggle('active');
+				if (pomodoroTaskCheck[i].classList.contains('active') === true) {
+					pomodoroTaskCheck[i].parentElement.getElementsByTagName('input')[0].style.textDecoration = 'line-through';
+				}
+				else {
+					pomodoroTaskCheck[i].parentElement.getElementsByTagName('input')[0].style.textDecoration = 'none';
+				}
+				localStorage.todolist = pomodoroTasks.innerHTML;
+			});
+		}
+		// deleting for every task
 		let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
 		for (let i = 0; i < pomodoroTaskdelete.length; i++) {
 			pomodoroTaskdelete[i].addEventListener('click', function () {
@@ -284,12 +359,25 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	// new task
 	addTaskBtn.addEventListener('click', function () {
-		addTask(addTaskInput, pomodoroTasks)
+		addTask(addTaskInput, pomodoroTasks);
 	});
 	addTaskInput.addEventListener('keypress', function (e) {
 		if (e.keyCode === 13) {
-			addTask(addTaskInput, pomodoroTasks)
+			addTask(addTaskInput, pomodoroTasks);
 		}
+	});
+
+	deleteAllTasks.addEventListener('click', function () {
+		pomodoroTasks.innerHTML = '';
+		localStorage.todolist = '';
+	});
+
+	// about
+	aboutOpen.addEventListener('click', function () {
+		modalAbout.classList.add('active');
+	});
+	aboutClose.addEventListener('click', function () {
+		modalAbout.classList.remove('active');
 	});
 
 	// FUNCTIONS
@@ -390,10 +478,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function addTask(addTaskInput, pomodoroTasks) {
 		if (addTaskInput.value !== '') {
-			pomodoroTasks.innerHTML += '<div class="pomodoro__task"><input type="text" value="' + addTaskInput.value + '" disabled><button class="pomodoro__taskedit"></button><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
+			pomodoroTasks.innerHTML += '<div class="pomodoro__task"><span class="pomodoro__task-check"></span><input type="text" value="' + addTaskInput.value + '" disabled><button class="pomodoro__taskedit"></button><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'
 			addTaskInput.value = '';
 			// write in localStorage
 			localStorage.todolist = pomodoroTasks.innerHTML;
+			// cross off tasks
+			let pomodoroTaskCheck = document.getElementsByClassName('pomodoro__task-check');
+			for (let i = 0; i < pomodoroTaskCheck.length; i++) {
+				pomodoroTaskCheck[i].addEventListener('click', function () {
+					pomodoroTaskCheck[i].classList.toggle('active');
+					if (pomodoroTaskCheck[i].classList.contains('active') === true) {
+						pomodoroTaskCheck[i].parentElement.getElementsByTagName('input')[0].style.textDecoration = 'line-through';
+					}
+					else {
+						pomodoroTaskCheck[i].parentElement.getElementsByTagName('input')[0].style.textDecoration = 'none';
+					}
+				});
+			}
 			// deleting for every task
 			let pomodoroTaskdelete = document.getElementsByClassName('pomodoro__taskdelete');
 			for (let i = 0; i < pomodoroTaskdelete.length; i++) {
@@ -405,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			addEditingTask();
 		}
 		else {
-			showChangingSettingsInput(addTaskInput);
+			showEmptySettingsInput(addTaskInput);
 		}
 	}
 	
@@ -426,10 +527,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// changing inputs (css-style)
 	function showChangingSettingsInput(elem) {
-		elem.style.animation = 'inputAnimation 1s linear';
+		elem.style.animation = 'inputAnimationBlack 2s linear';
 		setTimeout(function () {
 			elem.style.animation = 'none';
-		}, 2000);
+		}, 2100);
+	}
+
+	// empty inputs (css-style)
+	function showEmptySettingsInput(elem) {
+		elem.style.animation = 'inputAnimationWhite 2s linear';
+		setTimeout(function () {
+			elem.style.animation = 'none';
+		}, 2100);
 	}
 
 	// editing for every button and write new data in localStorage
