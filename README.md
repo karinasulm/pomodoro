@@ -1,6 +1,6 @@
 # Pomodoro
  
-A time managment tool for using Pomodoro Technique (Web-application).
+This is a time managment tool for using Pomodoro Technique (Web-application).
 
 ![Screenshot](screenshot.png)
 
