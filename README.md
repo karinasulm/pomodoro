@@ -2,6 +2,8 @@
  
 A time managment tool for using Pomodoro Technique (Web-application).
 
+![Screenshot](screenshot.png)
+
 # Featues:
 
 - Сhoice of mode - pomodoro, short break or long break with different backgroung colors.
