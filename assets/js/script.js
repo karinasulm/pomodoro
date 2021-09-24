@@ -214,12 +214,40 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
+	let pomodoroHourBackupValue = '0';
+	let pomodoroMinuteBackupValue = '25';
+	let pomodoroSecondBackupValue = '0';
+	let shortBreakHourBackupValue = '0';
+	let shortBreakMinuteBackupValue = '5';
+	let shortBreakSecondBackupValue = '0';
+	let longBreakHourBackupValue = '0';
+	let longBreakMinuteBackupValue = '15';
+	let longBreakSecondBackupValue = '0';
+
 	// settings
 	settingsOpen.addEventListener('click', function () {
 		modalSettings.classList.add('active');
+		pomodoroHourBackupValue = pomodoroHour.value;
+		pomodoroMinuteBackupValue = pomodoroMinute.value;
+		pomodoroSecondBackupValue = pomodoroSecond.value;
+		shortBreakHourBackupValue = shortBreakHour.value;
+		shortBreakMinuteBackupValue = shortBreakMinute.value;
+		shortBreakSecondBackupValue = shortBreakSecond.value;
+		longBreakHourBackupValue = longBreakHour.value;
+		longBreakMinuteBackupValue = longBreakMinute.value;
+		longBreakSecondBackupValue = longBreakSecond.value;
 	});
 	settingsClose.addEventListener('click', function () {
 		modalSettings.classList.remove('active');
+		pomodoroHour.value = pomodoroHourBackupValue;
+		pomodoroMinute.value = pomodoroMinuteBackupValue;
+		pomodoroSecond.value = pomodoroSecondBackupValue;
+		shortBreakHour.value = shortBreakHourBackupValue;
+		shortBreakMinute.value = shortBreakMinuteBackupValue;
+		shortBreakSecond.value = shortBreakSecondBackupValue;
+		longBreakHour.value = longBreakHourBackupValue;
+		longBreakMinute.value = longBreakMinuteBackupValue;
+		longBreakSecond.value = longBreakSecondBackupValue;
 	});
 	settingsSave.addEventListener('click', function () {
 		pomodoroHourValue = pomodoroHour.value;
