@@ -250,6 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		longBreakSecond.value = longBreakSecondBackupValue;
 	});
 	settingsSave.addEventListener('click', function () {
+		modalSettings.classList.remove('active');
 		pomodoroHourValue = pomodoroHour.value;
 		pomodoroMinuteValue = pomodoroMinute.value;
 		pomodoroSecondValue = pomodoroSecond.value;
