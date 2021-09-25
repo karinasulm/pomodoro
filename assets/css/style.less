@@ -19,6 +19,9 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    @media (max-width: 600px) {
+        font-size: 14px;
+    }
 }
 .wrapper {
     width: 100%;
@@ -248,6 +251,21 @@ body {
 		transform: scale(0.95);
 	}
 }
+.pomodoro__delete-tasks-text {
+    display: block;
+    font-size: 14px;
+    @media (max-width: 600px) {
+        display: none;
+    }
+}
+.pomodoro__delete-tasks-icon {
+    display: none;
+    width: 16px;
+    height: 16px;
+    @media (max-width: 600px) {
+        display: block;
+    }
+}
 .pomodoro__title {
     width: 100%;
     font-size: 24px;
@@ -255,6 +273,9 @@ body {
     border-bottom: 1px solid fadeout(@primary-color, 60%);
     padding: 0 0 10px 0;
     margin: 0 0 20px 0;
+    @media (max-width: 600px) {
+        font-size: 20px;
+    }
 }
 .pomodoro__addtask {
     width: 100%;
