@@ -29,11 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	let standbySecond = 0;
 
 	// settings
+	const modalSettings = document.getElementById('modalSettings');
 	const settingsOpen = document.getElementById('settingsOpen');
 	const settingsClose = document.getElementById('settingsClose');
-	const modalSettings = document.getElementById('modalSettings');
 	const settingsSave = document.getElementById('settingsSave');
 	const settingsReset = document.getElementById('settingsReset');
+
 	const pomodoroHour = document.getElementById('pomodoroHour');
 	const pomodoroMinute = document.getElementById('pomodoroMinute');
 	const pomodoroSecond = document.getElementById('pomodoroSecond');
@@ -43,15 +44,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	const longBreakHour = document.getElementById('longBreakHour');
 	const longBreakMinute = document.getElementById('longBreakMinute');
 	const longBreakSecond = document.getElementById('longBreakSecond');
-	let pomodoroHourValue = pomodoroHour.value;
-	let pomodoroMinuteValue = pomodoroMinute.value;
-	let pomodoroSecondValue = pomodoroSecond.value;
-	let shortBreakHourValue = shortBreakHour.value;
-	let shortBreakMinuteValue = shortBreakMinute.value;
-	let shortBreakSecondValue = shortBreakSecond.value;
-	let longBreakHourValue = longBreakHour.value;
-	let longBreakMinuteValue = longBreakMinute.value;
-	let longBreakSecondValue = longBreakSecond.value;
+
+	const audioCheckbox = document.getElementById('audioCheckbox');
+
+	let timeSettings = ['0', '25', '0', '0', '5', '0', '0', '15', '0'];
+	// [pomodoro hour, pomodoro minute, pomodoro second, 
+	// short break hour, short break minute, short break second, 
+	// long break hour, long break minute, long break second]
 
 	// to do list
 	const addTaskBtn = document.getElementById('addTaskBtn');
@@ -60,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// audio
 	let audio = document.getElementById('audio');
+	let audioCheck = true;
 
 	// edit task
 	const editTaskInput = document.getElementById('editTaskInput');
@@ -76,7 +76,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	const ArrowRight = document.getElementsByClassName('settings__arrow-right');
 	const settingsInput = document.getElementsByClassName('settings__input');
 
+	// button for clear tasks
 	const deleteAllTasks = document.getElementById('deleteAllTasks');
+
+	// values for backup settings if user didn't save changing
+	let timeSettingsBackup = ['0', '25', '0', '0', '5', '0', '0', '15', '0'];
+	// [pomodoro hour back up, pomodoro minute back up, pomodoro second back up, 
+	// short break hour back up, short break minute back up, short break second back up, 
+	// long break hour back up, long break minute back up, long break second back up]
 
 	// make buttons "pause" and "end" inactive - default settings for start
 	setDisabledTimerButtons(false, true, true);
@@ -149,7 +156,9 @@ document.addEventListener('DOMContentLoaded', function () {
 								pauseCheck = false;
 								resetCheck = true;
 								clearInterval(interval);
-								audio.play();
+								if (audioCheck === true){
+									audio.play();
+								}
 								setTimeout(function () {
 									setDisabledTimerButtons(false, true, true);
 									setDisabledModeButtons(false);
@@ -207,59 +216,72 @@ document.addEventListener('DOMContentLoaded', function () {
 		setDisabledSettings(false);
 	});
 
-	if (runCheck === true || pauseCheck === true) {
-		window.addEventListener('beforeunload', function (event) {
-			event.preventDefault();
-			event.returnValue = '';
-		});
+	// get settings from localStorage
+	if (localStorage.getItem('settings') === null) {
+		localStorage.setItem('settings', '[0,25,0,0,5,0,0,15,0]');
+		localStorage.setItem('audioCheck', 'true');
+	} else {
+		timeSettings = JSON.parse(localStorage.settings);
+		pomodoroHour.value = timeSettings[0];
+		pomodoroMinute.value = timeSettings[1];
+		pomodoroSecond.value = timeSettings[2];
+		shortBreakHour.value = timeSettings[3];
+		shortBreakMinute.value = timeSettings[4];
+		shortBreakSecond.value = timeSettings[5];
+		longBreakHour.value = timeSettings[6];
+		longBreakMinute.value = timeSettings[7];
+		longBreakSecond.value = timeSettings[8];
+		getTimeFromMode(mode, hour, minute, second);
+		showTime(hour, timeHour);
+		showTime(minute, timeMinute);
+		showTime(second, timeSecond);
+		audioCheck = JSON.parse(localStorage.audioCheck);
+		if (audioCheck === true ) {
+			audioCheckbox.checked = true;
+		} else {
+			audioCheckbox.checked = false;
+		}
 	}
-
-	let pomodoroHourBackupValue = '0';
-	let pomodoroMinuteBackupValue = '25';
-	let pomodoroSecondBackupValue = '0';
-	let shortBreakHourBackupValue = '0';
-	let shortBreakMinuteBackupValue = '5';
-	let shortBreakSecondBackupValue = '0';
-	let longBreakHourBackupValue = '0';
-	let longBreakMinuteBackupValue = '15';
-	let longBreakSecondBackupValue = '0';
 
 	// settings
 	settingsOpen.addEventListener('click', function () {
 		modalSettings.classList.add('active');
-		pomodoroHourBackupValue = pomodoroHour.value;
-		pomodoroMinuteBackupValue = pomodoroMinute.value;
-		pomodoroSecondBackupValue = pomodoroSecond.value;
-		shortBreakHourBackupValue = shortBreakHour.value;
-		shortBreakMinuteBackupValue = shortBreakMinute.value;
-		shortBreakSecondBackupValue = shortBreakSecond.value;
-		longBreakHourBackupValue = longBreakHour.value;
-		longBreakMinuteBackupValue = longBreakMinute.value;
-		longBreakSecondBackupValue = longBreakSecond.value;
+		timeSettingsBackup[0] = pomodoroHour.value;
+		timeSettingsBackup[1] = pomodoroMinute.value;
+		timeSettingsBackup[2] = pomodoroSecond.value;
+		timeSettingsBackup[3] = shortBreakHour.value;
+		timeSettingsBackup[4] = shortBreakMinute.value;
+		timeSettingsBackup[5] = shortBreakSecond.value;
+		timeSettingsBackup[6] = longBreakHour.value;
+		timeSettingsBackup[7] = longBreakMinute.value;
+		timeSettingsBackup[8] = longBreakSecond.value;
 	});
 	settingsClose.addEventListener('click', function () {
 		modalSettings.classList.remove('active');
-		pomodoroHour.value = pomodoroHourBackupValue;
-		pomodoroMinute.value = pomodoroMinuteBackupValue;
-		pomodoroSecond.value = pomodoroSecondBackupValue;
-		shortBreakHour.value = shortBreakHourBackupValue;
-		shortBreakMinute.value = shortBreakMinuteBackupValue;
-		shortBreakSecond.value = shortBreakSecondBackupValue;
-		longBreakHour.value = longBreakHourBackupValue;
-		longBreakMinute.value = longBreakMinuteBackupValue;
-		longBreakSecond.value = longBreakSecondBackupValue;
+		pomodoroHour.value = timeSettingsBackup[0];
+		pomodoroMinute.value = timeSettingsBackup[1];
+		pomodoroSecond.value = timeSettingsBackup[2];
+		shortBreakHour.value = timeSettingsBackup[3];
+		shortBreakMinute.value = timeSettingsBackup[4];
+		shortBreakSecond.value = timeSettingsBackup[5];
+		longBreakHour.value = timeSettingsBackup[6];
+		longBreakMinute.value = timeSettingsBackup[7];
+		longBreakSecond.value = timeSettingsBackup[8];
+		timeSettingsBackup = ['0', '25', '0', '0', '5', '0', '0', '15', '0'];
 	});
 	settingsSave.addEventListener('click', function () {
 		modalSettings.classList.remove('active');
-		pomodoroHourValue = pomodoroHour.value;
-		pomodoroMinuteValue = pomodoroMinute.value;
-		pomodoroSecondValue = pomodoroSecond.value;
-		shortBreakHourValue = shortBreakHour.value;
-		shortBreakMinuteValue = shortBreakMinute.value;
-		shortBreakSecondValue = shortBreakSecond.value;
-		longBreakHourValue = longBreakHour.value;
-		longBreakMinuteValue = longBreakMinute.value;
-		longBreakSecondValue = longBreakSecond.value;
+		timeSettings[0] = pomodoroHour.value;
+		timeSettings[1] = pomodoroMinute.value;
+		timeSettings[2] = pomodoroSecond.value;
+		timeSettings[3] = shortBreakHour.value;
+		timeSettings[4] = shortBreakMinute.value;
+		timeSettings[5] = shortBreakSecond.value;
+		timeSettings[6] = longBreakHour.value;
+		timeSettings[7] = longBreakMinute.value;
+		timeSettings[8] = longBreakSecond.value;
+		localStorage.settings = JSON.stringify(timeSettings); // save time settings in localStorage
+		localStorage.audioCheck = JSON.stringify(audioCheck); // save checkbox settings in localStorage
 		showChangingSettingsInput(pomodoroHour);
 		showChangingSettingsInput(pomodoroMinute);
 		showChangingSettingsInput(pomodoroSecond);
@@ -284,15 +306,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		longBreakHour.value = 0;
 		longBreakMinute.value = 15;
 		longBreakSecond.value = 0;
-		pomodoroHourValue = pomodoroHour.value;
-		pomodoroMinuteValue = pomodoroMinute.value;
-		pomodoroSecondValue = pomodoroSecond.value;
-		shortBreakHourValue = shortBreakHour.value;
-		shortBreakMinuteValue = shortBreakMinute.value;
-		shortBreakSecondValue = shortBreakSecond.value;
-		longBreakHourValue = longBreakHour.value;
-		longBreakMinuteValue = longBreakMinute.value;
-		longBreakSecondValue = longBreakSecond.value;
+		timeSettings[0] = pomodoroHour.value;
+		timeSettings[1] = pomodoroMinute.value;
+		timeSettings[2] = pomodoroSecond.value;
+		timeSettings[3] = shortBreakHour.value;
+		timeSettings[4] = shortBreakMinute.value;
+		timeSettings[5] = shortBreakSecond.value;
+		timeSettings[6] = longBreakHour.value;
+		timeSettings[7] = longBreakMinute.value;
+		timeSettings[8] = longBreakSecond.value;
+		localStorage.settings = JSON.stringify(timeSettings); // save settings in localStorage
 		showChangingSettingsInput(pomodoroHour);
 		showChangingSettingsInput(pomodoroMinute);
 		showChangingSettingsInput(pomodoroSecond);
@@ -343,19 +366,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		settingsInput[i].addEventListener('change', function () {
 			if (settingsInput[i].value < 0) {
 				settingsInput[i].value = 0;
-			}
-			else if (settingsInput[i].classList.contains('settings__input--hour')) {
+			} else if (settingsInput[i].classList.contains('settings__input--hour')) {
 				if (settingsInput[i].value > 4) {
 					settingsInput[i].value = 4;
 				}
-			}
-			else {
+			} else {
 				if (settingsInput[i].value > 59) {
 					settingsInput[i].value = 59;
 				}
 			}
 		});
 	}
+
+	audioCheckbox.addEventListener('click', function () {
+		if (audioCheckbox.checked === true) {
+			audioCheck = true;
+		} else {
+			audioCheck = false;
+		}
+	});
 
 	// to do list
 	if (localStorage.getItem('todolist') === null) {
@@ -427,17 +456,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				minute = standbyMinute;
 				second = standbySecond;
 			} else if (mode === 1) {
-				hour = pomodoroHourValue;
-				minute = pomodoroMinuteValue;
-				second = pomodoroSecondValue;
+				hour = timeSettings[0];
+				minute = timeSettings[1];
+				second = timeSettings[2];
 			} else if (mode === 2) {
-				hour = shortBreakHourValue;
-				minute = shortBreakMinuteValue;
-				second = shortBreakSecondValue;
+				hour = timeSettings[3];
+				minute = timeSettings[4];
+				second = timeSettings[5];
 			} else {
-				hour = longBreakHourValue;
-				minute = longBreakMinuteValue;
-				second = longBreakSecondValue;
+				hour = timeSettings[6];
+				minute = timeSettings[7];
+				second = timeSettings[8];
 			}
 			return [hour, minute, second];
     }
@@ -505,6 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		standbySecond = 0;
 	}
 
+	// add task
 	function addTask(addTaskInput, pomodoroTasks) {
 		if (addTaskInput.value !== '') {
 			pomodoroTasks.innerHTML += '<div class="pomodoro__task"><span class="pomodoro__task-check"></span><input type="text" value="' + addTaskInput.value + '" disabled><button class="pomodoro__taskedit"></button><button class="pomodoro__taskdelete" onclick="this.parentElement.remove();"></button></div>'

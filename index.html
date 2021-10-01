@@ -127,6 +127,13 @@
                         </label>
                     </div>
                 </div>
+                <div class="settings__item">
+                    <div class="settings__checkbox">
+                        <input class="settings__defaultcheckbox" type="checkbox" id="audioCheckbox" checked>
+                        <div class="settings__customcheckbox"></div>
+                        <label class="settings__labelcheckbox" for="audioCheckbox">Notification sound on/off</label>
+                    </div>
+                </div>
                 <div class="modal__buttons settings__buttons">
                     <button class="modal__btn settings__btn" id="settingsSave">Save</button>
                     <button class="modal__btn settings__btn" id="settingsReset">Reset</button>
@@ -155,7 +162,7 @@
 <div class="modal modal--edit-task" id="modalEditTask">
     <div class="modal__bg">
         <div class="modal__dialog">
-            <h2 class="modal__title">Edit task</h2>
+            <h2 class="modal__title">Edit this task</h2>
             <div class="edit-task">
                 <input class="modal__input edit-task__input" id="editTaskInput" type="text" value="">
                 <div class="modal__buttons edit-task__buttons">

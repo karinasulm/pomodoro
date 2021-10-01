@@ -508,7 +508,7 @@ body {
 .modal__title {
   font-size: 24px;
   text-align: center;
-  margin: 0 0 20px 0;
+  margin: 0 0 30px 0;
 }
 .modal__close {
   position: absolute;
@@ -559,6 +559,17 @@ body {
 }
 .modal__input:disabled {
   color: #a6a6a6;
+}
+.modal__input:focus {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+}
+.modal__input::-webkit-outer-spin-button,
+.modal__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.modal__input[type=number] {
+  -moz-appearance: textfield;
 }
 .modal__buttons {
   width: 100%;
@@ -622,7 +633,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 0 0 20px 0;
+  margin: 0 0 30px 0;
 }
 .settings__name {
   width: 100%;
@@ -659,13 +670,45 @@ body {
   width: 60px;
   text-align: center;
 }
-.modal__input::-webkit-outer-spin-button,
-.modal__input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.settings__checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-.modal__input[type=number] {
-  -moz-appearance: textfield;
+.settings__defaultcheckbox {
+  width: 60px;
+  height: 30px;
+  z-index: 100;
+  opacity: 0;
+  margin: 0 20px 0 0;
+  cursor: pointer;
+}
+.settings__customcheckbox {
+  width: 60px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: background-color 0.3s linear;
+}
+.settings__customcheckbox::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: left 0.3s linear;
+}
+.settings__defaultcheckbox:checked + .settings__customcheckbox {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.settings__defaultcheckbox:checked + .settings__customcheckbox::after {
+  left: calc(100% - 30px);
 }
 .edit-task {
   display: flex;
