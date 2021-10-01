@@ -329,6 +329,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		showTime(hour, timeHour);
 		showTime(minute, timeMinute);
 		showTime(second, timeSecond);
+		audioCheck === true;
+		audioCheckbox.checked = true;
 	});
 	
 	for (let i = 0; i < ArrowLeft.length; i++) {
