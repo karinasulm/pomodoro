@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
-@bg-color: #e76f51;
+@bg-color-first: #e76f51;
+@bg-color-second: #468faf;
+@bg-color-third: #4d908e;
 @primary-color: #ffffff;
 @secondary-color: darken(@primary-color, 75%);
 *, *::before, *::after {
@@ -11,7 +13,6 @@ html {
     height: 100%;
 }
 body {
-    background-color: @bg-color;
     color: @primary-color;
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
@@ -22,6 +23,15 @@ body {
     @media (max-width: 600px) {
         font-size: 14px;
     }
+}
+body.bg-color-first {
+    background-color: @bg-color-first;
+}
+body.bg-color-second {
+    background-color: @bg-color-second;
+}
+body.bg-color-third {
+    background-color: @bg-color-third;
 }
 .wrapper {
     width: 100%;

@@ -44,7 +44,6 @@ html {
   height: 100%;
 }
 body {
-  background-color: #e76f51;
   color: #ffffff;
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
@@ -57,6 +56,15 @@ body {
   body {
     font-size: 14px;
   }
+}
+body.bg-color-first {
+  background-color: #e76f51;
+}
+body.bg-color-second {
+  background-color: #468faf;
+}
+body.bg-color-third {
+  background-color: #4d908e;
 }
 .wrapper {
   width: 100%;
