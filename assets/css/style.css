@@ -653,7 +653,7 @@ body.bg-color-third {
   margin: 0 0 10px 0;
 }
 .settings__arrows {
-  padding: 0 24px;
+  padding: 0 30px;
   position: relative;
 }
 .settings__arrow-left,
@@ -667,17 +667,17 @@ body.bg-color-third {
   top: 0;
 }
 .settings__arrow-left {
-  left: 12px;
+  left: 15px;
   transform: translateY(4px) rotate(-45deg);
   cursor: pointer;
 }
 .settings__arrow-right {
-  right: 12px;
-  transform: translateX(-4px) translateY(4px) rotate(135deg);
+  right: 15px;
+  transform: translateY(4px) rotate(135deg);
   cursor: pointer;
 }
 .settings__input {
-  width: 50px;
+  width: 45px;
   text-align: center;
 }
 .settings__checkbox {
