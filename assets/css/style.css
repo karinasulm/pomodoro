@@ -39,6 +39,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 html {
   height: 100%;
@@ -508,7 +509,8 @@ body.bg-color-third {
 }
 .modal__dialog {
   position: relative;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   padding: 40px 20px;
@@ -651,7 +653,7 @@ body.bg-color-third {
   margin: 0 0 10px 0;
 }
 .settings__arrows {
-  padding: 0 30px;
+  padding: 0 24px;
   position: relative;
 }
 .settings__arrow-left,
@@ -665,17 +667,17 @@ body.bg-color-third {
   top: 0;
 }
 .settings__arrow-left {
-  left: 15px;
+  left: 12px;
   transform: translateY(4px) rotate(-45deg);
   cursor: pointer;
 }
 .settings__arrow-right {
-  right: 15px;
+  right: 12px;
   transform: translateY(4px) rotate(135deg);
   cursor: pointer;
 }
 .settings__input {
-  width: 60px;
+  width: 50px;
   text-align: center;
 }
 .settings__checkbox {
