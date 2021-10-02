@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// [pomodoro hour back up, pomodoro minute back up, pomodoro second back up, 
 	// short break hour back up, short break minute back up, short break second back up, 
 	// long break hour back up, long break minute back up, long break second back up]
+	let audioCheckBackup = true;
 
 	// make buttons "pause" and "end" inactive - default settings for start
 	setDisabledTimerButtons(false, true, true);
@@ -256,6 +257,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		timeSettingsBackup[6] = longBreakHour.value;
 		timeSettingsBackup[7] = longBreakMinute.value;
 		timeSettingsBackup[8] = longBreakSecond.value;
+		if (audioCheckbox.checked === true) {
+			audioCheckBackup = true;
+		} else {
+			audioCheckBackup = false;
+		}
 	});
 	settingsClose.addEventListener('click', function () {
 		modalSettings.classList.remove('active');
@@ -269,6 +275,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		longBreakMinute.value = timeSettingsBackup[7];
 		longBreakSecond.value = timeSettingsBackup[8];
 		timeSettingsBackup = ['0', '25', '0', '0', '5', '0', '0', '15', '0'];
+		audioCheck = audioCheckBackup;
+		if (audioCheck === true) {
+			audioCheckbox.checked = true;
+		} else {
+			audioCheckbox.checked = false;
+		}
+		audioCheckBackup = true;
 	});
 	settingsSave.addEventListener('click', function () {
 		modalSettings.classList.remove('active');
