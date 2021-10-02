@@ -673,7 +673,7 @@ body.bg-color-third {
 }
 .settings__arrow-right {
   right: 12px;
-  transform: translateY(4px) rotate(135deg);
+  transform: translateX(-4px) translateY(4px) rotate(135deg);
   cursor: pointer;
 }
 .settings__input {
